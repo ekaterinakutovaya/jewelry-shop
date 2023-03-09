@@ -1,0 +1,4 @@
+PassengerNodejs /home/t/tyusha/.local/bin/node
+PassengerAppRoot /home/t/tyusha/colette/catalogue
+PassengerAppType node
+PassengerStartupFile server.js

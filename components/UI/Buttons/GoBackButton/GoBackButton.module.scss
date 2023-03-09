@@ -1,0 +1,37 @@
+@import '~styles/mixins.scss';
+
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+
+    @include for-phone-only {
+        display: none;
+
+    }
+
+    @include for-tablet-portrait-only {
+        width: 50px;
+        height: 35px;
+        padding-left: 20px;
+    }
+}
+
+.icon {
+    width: 40px;
+    height: auto;
+    fill: #cbcbcb;
+    cursor: pointer;
+    transform: rotate(90deg);
+
+    transition: fill 0.3s linear;
+
+    &:hover {
+        fill: darken(#cbcbcb, 20%);
+        transition: fill 0.3s linear;
+    }
+
+
+}
+

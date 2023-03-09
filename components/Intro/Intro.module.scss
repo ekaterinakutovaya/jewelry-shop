@@ -1,0 +1,127 @@
+@import "~styles/mixins.scss";
+
+.intro {
+  width: 100%;
+  height: 450px;
+  position: relative;
+  background-size: cover;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background: #000;
+
+    filter: brightness(85%);
+
+    @include for-phone-only {
+      position: static;
+      filter: brightness(100%);
+    }
+  }
+
+  @include for-phone-only {
+    height: 300px;
+    display: block;
+  }
+
+  @include for-tablet-portrait-only {
+    height: 300px;
+  }
+}
+
+.titleWrapper {
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.529832001159839) 35%,
+    rgba(0, 0, 0, 0) 80%
+  );
+  padding: 10px 200px 10px 200px;
+
+  @include for-phone-only {
+    padding: 10px 30px;
+
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+
+    // width: 100%;
+    // padding: 10px 30px;
+    // background: linear-gradient(
+    //   90deg,
+    //   rgba(255, 255, 255, 0.529832001159839) 100%,
+    //   rgba(0, 0, 0, 0) 100%
+    // );
+  }
+
+  @include for-tablet-portrait-only {
+    width: 100%;
+    padding: 10px 15px;
+  }
+}
+
+.title {
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 600;
+  font-size: 72px;
+  color: var(--color-default);
+  letter-spacing: 2px;
+  line-height: 1;
+
+  @include for-phone-only {
+    font-size: 44px;
+    line-height: 1.2;
+  }
+}
+
+.subtitle {
+  padding-left: 3px;
+  font-weight: 300;
+  font-size: 24px;
+  color: var(--color-default);
+  letter-spacing: 2px;
+  padding-top: 20px;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+
+  img {
+    width: 100%;
+    display: block;
+    object-fit: cover;
+    filter: brightness(40%);
+  }
+
+  &:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.6166667350533963) 17%,
+      rgba(0, 0, 0, 0.05924376586572133) 80%
+    );
+  }
+}

@@ -1,0 +1,41 @@
+@import "~styles/mixins.scss";
+
+.popup {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 3000;
+    display: none;
+    background: rgba(0, 0, 0, 0.5);
+    animation-name: appear;
+    animation-duration: 300ms;
+}
+
+.popupContent {
+    padding: 30px;
+    background: white;
+    min-width: 250px;
+
+    @media only screen and (max-width: 430px) and (max-height:400px){
+        margin-bottom: 60vh;
+}
+}
+
+.popup.active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.row {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.close {
+    font-size: 24px;
+    cursor: pointer;
+}

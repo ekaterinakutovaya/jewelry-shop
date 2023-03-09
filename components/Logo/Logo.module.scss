@@ -1,0 +1,55 @@
+@import '~styles/mixins.scss';
+
+.logo {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: inherit;
+    fill: inherit;
+       transition: all 0.3s ease;
+
+        &:hover {
+            color: darken(white, 60%);
+        }
+
+    svg {
+        width: 60px;
+        height: 60px;
+        fill: inherit;
+
+        @include for-phone-only {
+            width: 50px;
+            height: 50px;
+        }
+    }
+}
+
+.titleWrapper {
+    text-align: center;
+}
+
+.title {
+    font-family: 'Dancing Script', cursive;
+    font-weight: 500;
+    font-size: 24px;
+    color: inherit;
+
+    padding-left: 1rem;
+    padding-right: 1rem;
+
+    @include for-phone-only {
+        display: none;
+    }
+
+    @include for-tablet-portrait-only {
+        display: none;
+    }
+
+    @include for-tablet-landscape-only {
+        font-size: 20px;
+    }
+
+    @include for-desktop-only {
+        font-size: 20px;
+    }
+}

@@ -1,0 +1,44 @@
+.button {
+    display: inline-block;
+    border-radius: 2px;
+    border: 1px solid black;
+    cursor: pointer;
+    font-size: 16px;
+    background-color: transparent;
+    text-decoration: none;
+    font-weight: 300;
+    padding: 15px 50px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-left: 2px;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+        background-color: #fff;
+        color: #000;
+    }
+
+    &--light {
+        text-transform: uppercase;
+        padding: 10px 30px;
+        color: #fff;
+        border: 1px solid #fff;
+
+        &:hover {
+        background-color: #fff;
+        color: #000;
+    }
+    }
+
+    &--dark {
+        background-color: #212529;
+        color: #fcfbf9;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+
+        &:hover {
+            background-color: transparent;
+            color: var(--color-default);
+        }
+    }
+}

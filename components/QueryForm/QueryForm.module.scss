@@ -1,0 +1,108 @@
+@import "~styles/mixins.scss";
+
+.wrapper {
+  display: flex;
+  align-items: center;
+
+  @include for-phone-only {
+    display: block;
+    padding: 10px;
+  }
+}
+
+.image {
+  max-width: 300px;
+  height: 300px;
+  overflow: hidden;
+  margin-right: 50px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    width: 100%;
+    object-fit: cover;
+    border: var(--border-default);
+  }
+
+  @include for-phone-only {
+    max-width: 200px;
+    height: 200px;
+    display: block;
+    width: 100%;
+    margin: 0 auto;
+    padding: 10px;
+  }
+}
+
+.content {
+  max-width: 350px;
+  display: flex;
+  flex-direction: column;
+
+  @include for-phone-only {
+    display: block;
+    padding-top: 10px;
+  }
+}
+
+.row {
+  display: flex;
+}
+
+.close {
+  margin-left: auto;
+  align-self: right;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.title {
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: 500;
+
+  @include for-phone-only {
+    margin-bottom: 10px;
+  }
+}
+
+.productName {
+  margin-bottom: 20px;
+  font-family: "Literata", serif;
+  font-size: 24px;
+  font-weight: 500;
+
+  @include for-phone-only {
+    margin-bottom: 10px;
+  }
+}
+
+.message {
+  margin-bottom: 30px;
+  font-weight: 300;
+
+  @include for-phone-only {
+    margin-bottom: 20px;
+  }
+}
+
+.name,
+.phone {
+  width: 100%;
+  background: white;
+  border: var(--border-default);
+  margin: 0 0 25px;
+  padding: 10px;
+  box-sizing: border-box;
+
+  font-size: 16px;
+  font-family: inherit;
+  font-weight: 300;
+  cursor: text;
+
+  @include for-phone-only {
+    margin: 0 0 20px;
+  }
+}

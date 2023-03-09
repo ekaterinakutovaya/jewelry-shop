@@ -1,0 +1,130 @@
+@import "~styles/mixins.scss";
+
+.wrapper {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  margin: 150px 0;
+  padding: 20px;
+  position: relative;
+
+  &:after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: -1;
+    width: 70%;
+    height: 100%;
+    display: inline-block;
+    background-color: #faf9fd;
+  }
+
+  @include for-phone-only {
+    flex-direction: column;
+    height: auto;
+    margin: 100px 0;
+    padding: 0;
+
+    &:after {
+      display: none;
+    }
+  }
+
+  @include for-tablet-portrait-only {
+    margin: 0 0 100px 0;
+    height: 500px;
+  }
+}
+
+.textCol {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  order: 1;
+
+  @include for-phone-only {
+    order: 2;
+    width: 100%;
+    height: auto;
+    padding: 50px 20px;
+    background-color: #faf9fd;
+  }
+}
+
+.info {
+  text-align: right;
+}
+
+.imageCol {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px;
+  order: 2;
+
+  @include for-phone-only {
+    order: 1;
+    width: 100%;
+    padding: 0;
+    justify-content: space-around;
+  }
+
+  @include for-tablet-portrait-only {
+    height: auto;
+    padding: 0;
+    justify-content: space-around;
+  }
+}
+
+.image {
+  max-width: 500px;
+  width: 100%;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    object-fit: cover;
+  }
+
+  @include for-tablet-portrait-only {
+    max-width: 300px;
+  }
+}
+
+.title {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 57px;
+  font-weight: 700;
+  padding-bottom: 30px;
+
+  @include for-phone-only {
+    font-size: 32px;
+  }
+
+  @include for-tablet-portrait-only {
+    font-size: 36px;
+  }
+}
+
+.text {
+  width: 70%;
+  font-size: 18px;
+  font-weight: 300;
+  margin-bottom: 50px;
+  text-align: right;
+
+  @include for-phone-only {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  @include for-tablet-portrait-only {
+    width: 100%;
+    font-size: 16px;
+  }
+}

@@ -1,0 +1,128 @@
+@import "~styles/mixins.scss";
+
+.wrapper {
+    width: 100%;
+    background-color: #faf9fd;
+    margin: 100px auto 0 auto;
+    padding: 100px;
+    text-align: center;
+    
+
+    h2 {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 700;
+    font-size: 42px;
+    text-align: center;
+    margin-bottom: 50px;
+
+    @include for-phone-only {
+      font-size: 36px;
+    }
+
+    @include for-tablet-portrait-only {
+      font-size: 40px;
+    }
+  }
+
+
+  @include for-phone-only {
+      padding: 100px 15px;
+    }
+}
+
+.form {
+    width: 60%;
+    margin: 0 auto;
+    display: block;
+    
+
+  @include for-phone-only {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    @include for-tablet-portrait-only {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    
+}
+
+.inputsWrapper {
+    display: flex;
+    margin-bottom: 30px;
+
+     @include for-phone-only {
+       display: block;
+       margin-bottom: 0;
+    }
+
+    @include for-tablet-portrait-only {
+      display: block;
+      margin-bottom: 0;
+    }
+}
+
+
+.name,
+.email,
+.message {
+    position: relative;
+    width: 100%;
+    background: white;
+    border: var(--border-default);
+    padding: 10px;
+    box-sizing: border-box;
+
+    font-size: 16px;
+    font-family: inherit;
+    font-weight: 300;
+    cursor: text;
+
+    @include for-phone-only {
+        margin-bottom: 30px;
+    }
+
+    @include for-tablet-portrait-only {
+      margin-bottom: 30px;
+    }
+}
+
+.name {
+    margin-right: 20px;
+
+    @include for-phone-only {
+        margin-right: 0;
+    }
+
+    @include for-tablet-portrait-only {
+      margin-right: 0;
+    }
+}
+
+.email {
+    margin-left: 20px;
+
+    @include for-phone-only {
+        margin-left: 0;
+    }
+
+    @include for-tablet-portrait-only {
+      margin-left: 0;
+    }
+}
+
+.message {
+    margin-bottom: 30px;
+}
+
+.success {
+    font-size: 36px;
+
+    @include for-phone-only {
+        font-size: 28px;
+    }
+}
+
