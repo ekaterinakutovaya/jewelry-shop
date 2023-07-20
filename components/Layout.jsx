@@ -37,13 +37,13 @@ const Layout = ({ title, children }) => {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
         <meta name="keywords" content="jewelry yuliya kutovaya" />
-        <meta name="yandex-verification" content="5f1c33cefc62ed26" />
+        <meta
+          name="description"
+          content="Уникальные украшения с тонкими мотивами Центральной Азии. Новое прочтение национальных узбекских украшений. Дизайны удостоенные наград на международных конкурсах. Премиальное качество изделий. Собственная разработка и производство. Высокие характеристики драгоценных камней и жемчуга. Гарантия качества и подлинности."
+        />
+        <meta name="yandex-verification" content="4495c81e422e3c77" />
         <title>{title}</title>
-        
-        
       </Head>
-
-      
 
       <header>
         <Navbar header={header} />

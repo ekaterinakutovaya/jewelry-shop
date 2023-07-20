@@ -54,7 +54,7 @@ const Footer = ({ footer }) => {
                 rel="noreferrer"
                 href="https://www.instagram.com/yuliya_kutovaya_jewelry/"
                 style={{
-                  stroke: `${footer.length && footer[0].textColor}`
+                  stroke: `${footer.length && footer[0].textColor}`,
                 }}
               >
                 <svg className={styles.instagramIcon}>
@@ -79,8 +79,13 @@ const Footer = ({ footer }) => {
               className={styles.contacts}
               style={{ color: `${footer.length && footer[0].textColor}` }}
             >
-              <a href="tel:+998977501173"><HiOutlinePhone /> + (998) 97 750-11-73</a>
-              <a href="mailto:yuliya@kutovaya.ru"><HiOutlineMail />yuliya@kutovaya.ru</a>
+              <a href="tel:+998977501173">
+                <HiOutlinePhone /> + (998) 97 750-11-73
+              </a>
+              <a href="mailto:support@yuliyakutovaya.uz">
+                <HiOutlineMail />
+                support@yuliyakutovaya.uz
+              </a>
             </div>
           </div>
         </div>
@@ -91,12 +96,13 @@ const Footer = ({ footer }) => {
         style={{
           color: `${footer.length && footer[0].textColor}`,
           backgroundColor: `${footer.length && footer[0].copyrightColor}`,
-          borderTop: `1px solid ${footer.length && footer[0].borderColor}`
+          borderTop: `1px solid ${footer.length && footer[0].borderColor}`,
         }}
       >
         <div className={styles.text}>
-          <p>&copy;&nbsp;Yuliya Kutovaya Jewelry 2022</p>
-          <p className="my-2">Разработка сайта
+          <p>&copy;&nbsp;Yuliya Kutovaya Jewelry 2023</p>
+          <p className="my-2">
+            Разработка сайта
             <a
               href="https://ekaterina.kutovaya.ru"
               target="_blank"
