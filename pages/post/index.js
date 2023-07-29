@@ -22,6 +22,7 @@ const Post = ({ post }) => {
 
   return (
     <Layout title={title}>
+      <h1 aria-label="31 января День Ювелира основатель Михаил Кутовой ювелир January 31st Jeweller's day founder Michael Kutovoy jeweller"></h1>
       <div>
         <Intro
           image={topImage}
@@ -39,7 +40,6 @@ const Post = ({ post }) => {
               <p className={styles.date}>31 января 2023</p>
               <p className={styles.author}>Юлия Кутовая</p>
             </div>
-
 
             <div className={styles.row}>
               <div className={styles.imageCol}>
@@ -77,7 +77,7 @@ const Post = ({ post }) => {
             <div className={styles.grid}>
               <div>
                 <div className={styles.authorImage}>
-                  <div >
+                  <div>
                     <ProgressiveImage
                       src={urlFor(blocks[2].blockImage)}
                       placeholder={urlFor(blocks[2].blockImageMin)}
@@ -100,8 +100,7 @@ const Post = ({ post }) => {
             </div>
 
             <div className={styles.grid}>
-              <div>
-              </div>
+              <div></div>
 
               <div>
                 <div className={styles.articleImage}>
@@ -123,10 +122,8 @@ const Post = ({ post }) => {
               </div>
             </div>
 
-
             <div className={styles.grid}>
-              <div>
-              </div>
+              <div></div>
 
               <div>
                 <div className={styles.articleImage}>
@@ -149,8 +146,7 @@ const Post = ({ post }) => {
             </div>
 
             <div className={styles.grid}>
-              <div>
-              </div>
+              <div></div>
 
               <div>
                 <div className={styles.articleImage}>
@@ -173,8 +169,7 @@ const Post = ({ post }) => {
             </div>
 
             <div className={styles.grid}>
-              <div>
-              </div>
+              <div></div>
 
               <div>
                 <div className={styles.articleImage}>
@@ -195,13 +190,10 @@ const Post = ({ post }) => {
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </section>
-
     </Layout>
-
   );
 };
 

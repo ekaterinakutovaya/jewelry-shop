@@ -3,7 +3,7 @@
 
 .instagram {
   width: 100%;
-  padding: 150px 0 150px 0;
+  padding: 100px 0 100px 0;
 
   h2 {
     font-family: "Cormorant Garamond", serif;
@@ -32,7 +32,7 @@
 
 .inner {
   padding: 0 200px;
-  position: relative;
+  // position: relative;
 
   @include for-phone-only {
     padding: 0 50px;

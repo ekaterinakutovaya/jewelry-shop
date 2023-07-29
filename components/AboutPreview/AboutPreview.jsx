@@ -36,7 +36,7 @@ const AboutPreview = ({ about }) => {
 
       <div className={styles.imageCol}>
         <div className={styles.image} data-aos={"fade-left"}>
-          <img src={urlFor(previewImage)} onContextMenu={e => e.preventDefault()} alt={title} />
+          <img src={urlFor(previewImage)} onContextMenu={e => e.preventDefault()} alt="Yuliya Kutovaya Jewelry Юлия Кутовая Demi-couture jewelry ювелирные украшения изделия купить в Ташкенте" />
         </div>
       </div>
     </div>

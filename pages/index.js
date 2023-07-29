@@ -28,7 +28,7 @@ const Home = ({ products, collections, randomItem, about }) => {
 
   return (
     <Layout title={title}>
-      <h1 aria-label="Эксклюзивные ювелирные украшения Yuliya Kutovaya Jewelry заказать в Ташкенте"></h1>
+      <h1 aria-label="Эксклюзивные ювелирные украшения Yuliya Kutovaya Jewelry Кутовая Юлия заказать в Ташкенте"></h1>
       <div>
         <CollectionsPreview collections={collections} />
       </div>

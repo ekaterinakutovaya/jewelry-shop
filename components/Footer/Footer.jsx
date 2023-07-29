@@ -104,7 +104,7 @@ const Footer = ({ footer }) => {
           <p className="my-2">
             Разработка сайта
             <a
-              href="https://ekaterina.kutovaya.ru"
+              href="https://ekaterina.kutovaya.uz"
               target="_blank"
               rel="noreferrer"
               className={styles.dev}

@@ -27,25 +27,19 @@ const About = ({ about }) => {
 
   return (
     <Layout title={title}>
-      <Intro
-        image={topImage}
-        placeholder={topImagePlaceholder}
-        title={title}
-      />
+      <h1 aria-label="Уникальные ювелирные украшения Yuliya Kutovaya Jewelry Кутовая Юлия заказать в Ташкенте"></h1>
+      <Intro image={topImage} placeholder={topImagePlaceholder} title={title} />
 
       <section className={styles.section}>
         <div className="container">
           <GoBackButton handleGoBack={handleGoBack} />
         </div>
         <div className={styles.wrapper}>
-          {blocks?.map(block => (
+          {blocks?.map((block) => (
             <div className={styles.row} key={block._key}>
               <div className={styles.imageCol}>
                 <div className={styles.image}>
-                  <img
-                    src={urlFor(block.blockImage)}
-                    alt={block.blockTitle}
-                  />
+                  <img src={urlFor(block.blockImage)} alt={block.blockTitle} />
                 </div>
               </div>
 

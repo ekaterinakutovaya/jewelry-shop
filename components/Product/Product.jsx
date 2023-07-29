@@ -15,13 +15,13 @@ const Product = ({ product: { title, slug, productItems } }) => {
               <ProgressiveImage
                 src={urlFor(productItems[0].itemImage)}
                 placeholder={urlFor(productItems[0].imagePlaceholder)}
-                alt={title}
+                alt={`${title} заказать в Ташкенте`}
               />
             ) : (
               <img
                 src={urlFor(productItems[0].itemImage)}
-                alt={title}
-                onContextMenu={e => e.preventDefault()}
+                alt={`${title} заказать в Ташкенте`}
+                onContextMenu={(e) => e.preventDefault()}
               />
             )}
           </div>

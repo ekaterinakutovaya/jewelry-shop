@@ -48,6 +48,7 @@ const CollectionPage = ({ collection, products, randomDevider }) => {
 
   return (
     <Layout title={title}>
+      <h1 aria-label="Эксклюзивные ювелирные украшения Yuliya Kutovaya Jewelry Юлия Кутовая заказать в Ташкенте"></h1>
       <TopMobile
         image={topImage}
         imagePlaceholder={imagePlaceholder}
@@ -67,7 +68,7 @@ const CollectionPage = ({ collection, products, randomDevider }) => {
 
       <div className="container">
         <div className="productsWrapper">
-          {products?.map(product => (
+          {products?.map((product) => (
             <Product key={product._id} product={product} />
           ))}
         </div>
@@ -79,7 +80,7 @@ const CollectionPage = ({ collection, products, randomDevider }) => {
           <GetLook images={lookImage} background={lookBackgroundImage} />
         </>
       ) : (
-          <BlockDevider randomDevider={randomDevider} />
+        <BlockDevider randomDevider={randomDevider} />
       )}
 
       {/* {manuscriptURL ? (

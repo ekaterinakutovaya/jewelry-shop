@@ -68,8 +68,10 @@ const Navbar = ({ header }) => {
   }]);
 
   useEffect(() => {
+   
     if (header.length) {
       if (header[0].backgroundImage) {
+
         setNavbarStyles(prevState => [
           ...prevState,
           {

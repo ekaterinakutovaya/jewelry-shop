@@ -30,7 +30,6 @@ const MySlider = ({ children }) => {
     dots: true,
     autoplay: true,
     autoplaySpeed: 7000,
-    infinite: true,
     focusOnSelect: true,
     speed: 1000,
     infinite: true,

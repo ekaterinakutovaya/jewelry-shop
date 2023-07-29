@@ -9,6 +9,7 @@ export { default as GetLookMobile } from "./GetLook/GetLookMobile";
 export { default as InstagramPosts } from "./InstagramPosts/InstagramPosts";
 export { default as Intro } from "./Intro/Intro";
 export { default as Logo } from './Logo/Logo';
+export { default as LogoIcon } from "./LogoIcon/LogoIcon";
 export { default as Navbar } from "./Navbar/Navbar";
 export { default as Product } from "./Product/Product";
 export { default as ProgressiveImage } from "./ProgressiveImage/ProgressiveImage";
@@ -24,4 +25,5 @@ export { default as Button } from "./UI/Buttons/Button/Button";
 export { default as GoBackButton } from "./UI/Buttons/GoBackButton/GoBackButton";
 export { default as ScrollUpButton } from "./UI/Buttons/ScrollUpButton/ScrollUpButton";
 export { default as Popup } from "./UI/Popup/Popup";
+export { default as PagePreloader } from "./UI/PagePreloader/PagePreloader";
 

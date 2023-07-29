@@ -11,7 +11,7 @@ import {
   InstagramPosts,
   ProgressiveImage,
   ContactUs,
-  Layout
+  Layout,
 } from "components";
 
 import styles from "./ProductDetails.module.scss";
@@ -20,7 +20,7 @@ function currencyFormatter(num) {
   let formatter = new Intl.NumberFormat("ru", {
     style: "currency",
     currency: "UZS",
-    maximumFractionDigits: 0
+    maximumFractionDigits: 0,
   });
 
   return formatter.format(num);
@@ -30,7 +30,7 @@ const ProductDetails = ({
   product,
   randomItem,
   // feed,
-  randomDevider
+  randomDevider,
 }) => {
   const router = useRouter();
   const { title, productItems } = product;
@@ -39,19 +39,22 @@ const ProductDetails = ({
   const [fullscreen, setFullscreen] = useState(false);
   const [feed, setFeed] = useState({});
   let activeClassName = styles.active;
-  
+
   useEffect(() => {
     window.scroll(0, 0);
   }, []);
 
   useEffect(() => {
-    fetchInstagramFeed()
-      .then(response => setFeed(response))
+    fetchInstagramFeed().then((response) => setFeed(response));
 
-      return () => {
-        setFeed({})
-      }
-  }, [])
+    return () => {
+      setFeed({});
+    };
+  }, []);
+
+  const fullScreenHandler = () => {
+    setFullscreen(!fullscreen);
+  };
 
   const handleGoBack = () => {
     router.back();
@@ -69,6 +72,7 @@ const ProductDetails = ({
           />
         </Popup> */}
 
+      <h1 aria-label={`${title}  заказать в Ташкенте`}></h1>
       <div className={styles.back}>
         <GoBackButton handleGoBack={handleGoBack} />
       </div>
@@ -91,7 +95,7 @@ const ProductDetails = ({
                     <ProgressiveImage
                       src={urlFor(productItems[i].itemImage)}
                       placeholder={urlFor(productItems[i].imagePlaceholder)}
-                      alt={title}
+                      alt={`${title} заказать в Ташкенте`}
                     />
                   </div>
                 ))}
@@ -101,7 +105,7 @@ const ProductDetails = ({
                 className={
                   fullscreen ? `${styles.imageFullscreen}` : `${styles.image}`
                 }
-                onClick={() => setFullscreen(!fullscreen)}
+                onClick={fullScreenHandler}
               >
                 <AiOutlineFullscreenExit
                   className={
@@ -114,7 +118,7 @@ const ProductDetails = ({
                 <ProgressiveImage
                   src={urlFor(productItems[index]?.itemImage)}
                   placeholder={urlFor(productItems[index]?.imagePlaceholder)}
-                  alt={title}
+                  alt={`${title} заказать в Ташкенте`}
                 />
               </div>
             </div>
@@ -132,9 +136,11 @@ const ProductDetails = ({
 
               {productItems[0].price ? (
                 <>
-                  <p className={styles.price}>{currencyFormatter(productItems[0].price)}</p>
+                  <p className={styles.price}>
+                    {currencyFormatter(productItems[0].price)}
+                  </p>
                   <a
-                    className='button button--dark'
+                    className="button button--dark"
                     target="_blank"
                     href="https://t.me/yuliya_kutovaya_jewelry"
                     rel="noreferrer"
@@ -146,7 +152,7 @@ const ProductDetails = ({
                 <>
                   <p className={styles.price}>Цена по запросу</p>
                   <a
-                    className='button button--dark'
+                    className="button button--dark"
                     target="_blank"
                     href="https://t.me/yuliya_kutovaya_jewelry"
                     rel="noreferrer"
@@ -155,7 +161,6 @@ const ProductDetails = ({
                   </a>
                 </>
               )}
-
             </div>
           </div>
         </div>
@@ -166,7 +171,6 @@ const ProductDetails = ({
       ) : (
         ""
       )}
-
 
       <RandomPreview randomItem={randomItem} />
 
@@ -187,15 +191,15 @@ export const getStaticPaths = async () => {
 
   const products = await client.fetch(query);
 
-  const paths = products.map(product => ({
+  const paths = products.map((product) => ({
     params: {
-      slug: product.slug.current
-    }
+      slug: product.slug.current,
+    },
   }));
 
   return {
     paths,
-    fallback: "blocking"
+    fallback: "blocking",
   };
 };
 
@@ -210,7 +214,7 @@ export const getStaticProps = async ({ params: { slug } }) => {
 
   let randomDevider = devider[Math.floor(Math.random() * devider.length)];
 
-  let newProducts = products.filter(el => el.randomPreview !== undefined);
+  let newProducts = products.filter((el) => el.randomPreview !== undefined);
   let randomItem = newProducts[Math.floor(Math.random() * newProducts.length)];
 
   // const url = `https://graph.instagram.com/me/media?fields=id,caption,media_url,timestamp,media_type,permalink&access_token=${process.env.INSTAGRAM_TOKEN}`;
@@ -224,9 +228,9 @@ export const getStaticProps = async ({ params: { slug } }) => {
       randomItem,
       devider,
       // feed,
-      randomDevider
+      randomDevider,
     },
-    revalidate: 10
+    revalidate: 10,
   };
 };
 

@@ -4,6 +4,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { GoogleAnalytics } from "nextjs-google-analytics";
 
+// import { gsap } from "gsap";
+
 import { ScrollUpButton } from "components";
 
 
@@ -13,6 +15,7 @@ function MyApp({ Component, pageProps}) {
     <>
       <GoogleAnalytics trackPageViews />
         <Component {...pageProps} />
+      
         <ToastContainer
           autoClose={4000}
           hideProgressBar={true}

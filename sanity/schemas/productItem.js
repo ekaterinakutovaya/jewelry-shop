@@ -14,6 +14,11 @@ export default {
       type: "image"
     },
     {
+      title: "Alt",
+      name: "alt",
+      type: "string"
+    },
+    {
       title: "Описание",
       name: "itemDesc",
       type: "array",
