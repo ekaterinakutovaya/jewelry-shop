@@ -86,8 +86,8 @@ const CollectionPage = ({ collection, products, randomDevider }) => {
       {/* {manuscriptURL ? (
         <Video/>
       ) : ''} */}
-
-      <InstagramPosts feed={feed} />
+      
+      {feed && <InstagramPosts feed={feed} />}
 
       <ContactUs />
     </Layout>

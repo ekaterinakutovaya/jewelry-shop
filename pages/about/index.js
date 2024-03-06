@@ -55,8 +55,8 @@ const About = ({ about }) => {
           ))}
         </div>
       </section>
-
-      <InstagramPosts feed={feed} />
+      
+      {feed && <InstagramPosts feed={feed} />}
 
       <ContactUs />
     </Layout>

@@ -5,10 +5,13 @@ import "aos/dist/aos.css";
 import { client } from "lib/client";
 import { fetchInstagramFeed } from "lib/api";
 import { CollectionsPreview, Product, RandomPreview, Scetch, AboutPreview, InstagramPosts, ContactUs, Layout } from "components";
+import {useRouter} from "next/router";
+import {existsGaId, GA_TRACKING_ID} from "../lib/ga";
 
 const Home = ({ products, collections, randomItem, about }) => {
   const title = "Yuliya Kutovaya Jewelry";
   const [feed, setFeed] = useState({});
+  const router = useRouter()
 
   useEffect(() => {
     AOS.init({
@@ -25,6 +28,21 @@ const Home = ({ products, collections, randomItem, about }) => {
       setFeed({})
     }
   }, [])
+  
+  useEffect(() => {
+    if (!existsGaId) return
+    
+    const handleRouteChange = (url) => {
+      window.gtag('config', GA_TRACKING_ID, {
+        page_path: url,
+      })
+    }
+    
+    router.events.on('routeChangeComplete', handleRouteChange)
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange)
+    }
+  }, [router.events])
 
   return (
     <Layout title={title}>
@@ -46,9 +64,8 @@ const Home = ({ products, collections, randomItem, about }) => {
       <RandomPreview randomItem={randomItem} />
 
       <AboutPreview about={about} />
-
-      <InstagramPosts feed={feed} />
-
+      
+      {feed && <InstagramPosts feed={feed} />}
       <ContactUs />
     </Layout>
   );

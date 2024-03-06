@@ -72,7 +72,7 @@ const ProductDetails = ({
           />
         </Popup> */}
 
-      <h1 aria-label={`${title}  заказать в Ташкенте`}></h1>
+      <h1 aria-label={`${title} заказать в Ташкенте`}></h1>
       <div className={styles.back}>
         <GoBackButton handleGoBack={handleGoBack} />
       </div>
@@ -173,8 +173,8 @@ const ProductDetails = ({
       )}
 
       <RandomPreview randomItem={randomItem} />
-
-      <InstagramPosts feed={feed} />
+      
+      {feed && <InstagramPosts feed={feed} />}
 
       <ContactUs />
     </Layout>

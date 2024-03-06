@@ -100,7 +100,7 @@ const Footer = ({ footer }) => {
         }}
       >
         <div className={styles.text}>
-          <p>&copy;&nbsp;Yuliya Kutovaya Jewelry 2023</p>
+          <p>&copy;&nbsp;Yuliya Kutovaya Jewelry {new Date().getFullYear()}</p>
           <p className="my-2">
             Разработка сайта
             <a
