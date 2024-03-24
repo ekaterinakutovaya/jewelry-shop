@@ -5,15 +5,12 @@ import "react-toastify/dist/ReactToastify.css";
 import Script from 'next/script'
 import { existsGaId, GA_TRACKING_ID } from '../lib/ga'
 
-// import { gsap } from "gsap";
-
 import { ScrollUpButton } from "components";
 
 function MyApp({ Component, pageProps}) {
 
   return (
     <>
-      {/* Global Site Tag (gtag.js) - Google Analytics */}
       {existsGaId && (
           <>
             <Script

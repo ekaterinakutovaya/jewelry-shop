@@ -29,7 +29,6 @@ function currencyFormatter(num) {
 const ProductDetails = ({
   product,
   randomItem,
-  // feed,
   randomDevider,
 }) => {
   const router = useRouter();
@@ -217,17 +216,12 @@ export const getStaticProps = async ({ params: { slug } }) => {
   let newProducts = products.filter((el) => el.randomPreview !== undefined);
   let randomItem = newProducts[Math.floor(Math.random() * newProducts.length)];
 
-  // const url = `https://graph.instagram.com/me/media?fields=id,caption,media_url,timestamp,media_type,permalink&access_token=${process.env.INSTAGRAM_TOKEN}`;
-  // const data = await fetch(url);
-  // const feed = await data.json();
-
   return {
     props: {
       products,
       product,
       randomItem,
       devider,
-      // feed,
       randomDevider,
     },
     revalidate: 10,

@@ -85,10 +85,6 @@ export const getServerSideProps = async () => {
   let newProducts = products.filter(el => el.randomPreview !== undefined);
   let randomItem = newProducts[Math.floor(Math.random() * newProducts.length)];
 
-  // const url = `https://graph.instagram.com/me/media?fields=id,caption,media_url,timestamp,media_type,permalink&access_token=${process.env.INSTAGRAM_TOKEN}`;
-  // const data = await fetch(url);
-  // const feed = await data.json();
-
   return {
     props: {
       products,
@@ -96,7 +92,6 @@ export const getServerSideProps = async () => {
       randomItem,
       devider,
       about
-      // feed
     }
   };
 };
