@@ -48,7 +48,7 @@ const InstagramPosts = ({ feed }) => {
                       rel="noreferrer"
                       className={styles.instagramLink}
                   >
-                    <div className={styles.imageWrapper}>
+                    <div className={`${styles.imageWrapper} border border-grey-50`}>
                       <div className={styles.overlay}><BsInstagram /></div>
                       <div className={styles.image}>
                         <img src={item.media_url} alt="instagram images" />
