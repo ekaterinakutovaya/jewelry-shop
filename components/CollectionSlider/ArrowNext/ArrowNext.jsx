@@ -7,7 +7,7 @@ const ArrowNext = ({ onClick }) => {
       <svg className={styles.arrowNext}>
         <use xlinkHref="#arrowNext" />
       </svg>
-      <svg display="none">
+      <svg className="hidden" display="none">
         <symbol
           id="arrowNext"
           viewBox="0 0 195.055 195.055"

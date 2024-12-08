@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react';
 
-const ProgressiveImage = ({src, placeholder, alt}) => {
+const ProgressiveImage = ({src, placeholder, alt, className}) => {
     const [imageSrc, setImageSrc] = useState(placeholder);
 
-    const cn = `progressiveImage ${imageSrc === placeholder ? "loadingImage" : "loadedImage"}`
+    const cn = `progressiveImage ${className} ${imageSrc === placeholder ? "loadingImage" : "loadedImage"}`
 
     useEffect(() => {
         const img = new Image();

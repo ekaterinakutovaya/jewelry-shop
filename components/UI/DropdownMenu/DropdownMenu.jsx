@@ -14,7 +14,7 @@ const DropdownMenu = ({ items, color, backgroundColor, borderColor }) => {
       >
         <ul>
           {items.map((item, index) => (
-            <li key={index} className={styles.item}>
+            <li key={index} className={`${styles.item} flex flex-col items-end`}>
               <a
                 href={item.href}
                 target="_blank"

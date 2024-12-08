@@ -54,7 +54,6 @@
   max-width: 560px;
   display: block;
   margin-right: 80px;
-  // border: 1px solid red;
 
   @include for-phone-only {
     display: flex;
@@ -68,8 +67,7 @@
   @include for-tablet-portrait-only {
     display: flex;
     order: 2;
-    margin: 0 auto;
-    margin-top: 30px;
+    margin: 30px auto 0;
   }
 }
 
@@ -195,7 +193,13 @@
   padding: 30px 100px;
 
   @include for-phone-only {
-    padding: 20px 30px;
+    padding: 20px 15px;
+  }
+
+  @media screen and (min-width: 1280px) and (max-width: 1600px) {
+    margin-left: 80px;
+    padding: 20px 15px;
+    //border: 1px solid #e7e7e7;
   }
 }
 
@@ -204,7 +208,7 @@
   font-size: 32px;
   font-weight: 500;
   text-transform: capitalize;
-  padding-bottom: 80px;
+  padding-bottom: 40px;
 
   @include for-phone-only {
     font-size: 24px;
@@ -216,6 +220,35 @@
     padding-bottom: 30px;
   }
 }
+
+.gemSelector {
+  padding-bottom: 40px;
+  display: flex;
+  flex-direction: column;
+
+  span {
+    margin-bottom: 10px;
+    font-weight: 300;
+
+  }
+
+  div {
+    display: flex;
+    gap: 10px; /* Spacing between buttons */
+  }
+}
+
+.gemSelectorInner {
+
+
+  @include for-phone-only {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+
+
 
 .info {
   font-weight: 300;
@@ -243,4 +276,8 @@
     padding-top: 30px;
     padding-bottom: 30px;
   }
+}
+
+.modelWrapper {
+  min-height: 100vh;
 }

@@ -12,8 +12,8 @@ import styles from "./Navbar.module.scss";
 const items = [
   {
     value: (
-      <Link href="/post" className={styles.linkAbout}>
-        31 января - День Ювелира
+      <Link href="/all-collection" className={styles.linkAbout}>
+        Коллекции
       </Link>
     )
   },
@@ -22,6 +22,13 @@ const items = [
       <Link href="/" className={styles.linkAbout}>
         Все изделия
       </Link>
+    )
+  },
+  {
+    value: (
+        <Link href="/post" className={styles.linkAbout}>
+          31 января - День Ювелира
+        </Link>
     )
   },
   {
@@ -124,51 +131,56 @@ const Navbar = ({ header }) => {
       ) : (
         ""
       )}
-
-      <ul className={styles.navList}>
-        <li style={{ color: `${header.length && header[0].textColor}` }}>
+      
+      <ul className={`${styles.navList}`}>
+        <li style={{color: `${header.length && header[0].textColor}`}} className="">
+          <Link href="/all-collection" passHref>
+            <div className={styles.day}>Коллекции</div>
+          </Link>
+        </li>
+        <li style={{color: `${header.length && header[0].textColor}`}}>
           <Link href="/post" passHref>
             <a className={styles.day}>31 января - День Ювелира</a>
           </Link>
         </li>
-
+        
         <li>
           <a
-            className={styles.link}
-            target="_blank"
-            rel="noreferrer"
-            href="https://www.instagram.com/yuliya_kutovaya_jewelry/"
-            style={{ stroke: `${header.length && header[0].textColor}` }}
+              className={styles.link}
+              target="_blank"
+              rel="noreferrer"
+              href="https://www.instagram.com/yuliya_kutovaya_jewelry/"
+              style={{stroke: `${header.length && header[0].textColor}`}}
           >
             <svg className={styles.instagramIcon}>
-              <use xlinkHref="#instagram" />
+              <use xlinkHref="#instagram"/>
             </svg>
-            <Instagram />
+            <Instagram/>
           </a>
         </li>
-
+        
         <li>
           <a
-            className={styles.link}
-            target="_blank"
-            href="https://t.me/yuliya_kutovaya_jewelry"
-            rel="noreferrer"
-            style={{ fill: `${header.length && header[0].textColor}` }}
+              className={styles.link}
+              target="_blank"
+              href="https://t.me/yuliya_kutovaya_jewelry"
+              rel="noreferrer"
+              style={{fill: `${header.length && header[0].textColor}`}}
           >
             <svg className={styles.telegramIcon}>
-              <use xlinkHref="#telegram" />
+              <use xlinkHref="#telegram"/>
             </svg>
-            <Telegram />
+            <Telegram/>
           </a>
         </li>
-
-        <li style={{ color: `${header.length && header[0].textColor}` }}>
+        
+        <li style={{color: `${header.length && header[0].textColor}`}}>
           <a className={styles.phone} href="tel:+998977501173">
             + (998) 97 750-11-73
           </a>
         </li>
-
-        <li style={{ color: `${header.length && header[0].textColor}` }}>
+        
+        <li style={{color: `${header.length && header[0].textColor}`}}>
           <Link href="/about" passHref>
             <a className={styles.phone}>О Нас</a>
           </Link>

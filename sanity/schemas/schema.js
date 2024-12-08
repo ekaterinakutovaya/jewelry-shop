@@ -3,10 +3,13 @@ import schemaTypes from 'all:part:@sanity/base/schema-type';
 
 import product from './product';
 import collection from "./collection";
+import allCollection from "./allCollection";
+import category from "./category";
 import about from "./about";
 import aboutParagraph from "./aboutParagraph";
 import aboutBlocks from "./aboutBlocks";
 import productItem from "./productItem";
+import collectionItem from "./collectionItem";
 import header from "./header";
 import post from "./post";
 import postBlocks from "./postBlocks";
@@ -19,7 +22,9 @@ export default createSchema({
   name: "default",
   types: schemaTypes.concat([
     product,
+    allCollection,
     collection,
+    category,
     about,
     aboutParagraph,
     aboutBlocks,
@@ -30,6 +35,7 @@ export default createSchema({
     postParagraph,
     footer,
     devider,
-    productItem
+    productItem,
+    collectionItem
   ])
 });

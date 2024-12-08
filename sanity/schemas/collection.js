@@ -36,6 +36,54 @@ export default {
       }
     },
     {
+      name: "itemImageModel",
+      title: "Изображение на модели для карточки",
+      type: "image",
+      options: {
+        hotspot: true
+      }
+    },
+    {
+      name: "itemImageModelPlaceholder",
+      title: "Изображение на модели для карточки placeholder",
+      type: "image",
+      options: {
+        hotspot: true
+      }
+    },
+    {
+      name: "itemImage1",
+      title: "Изображение 1 для карточки",
+      type: "image",
+      options: {
+        hotspot: true
+      }
+    },
+    {
+      name: "itemImage1Placeholder",
+      title: "Изображение 1 для карточки placeholder",
+      type: "image",
+      options: {
+        hotspot: true
+      }
+    },
+    {
+      name: "imagePng",
+      title: "png для карточки",
+      type: "image",
+      options: {
+        hotspot: true
+      }
+    },
+    {
+      name: "imagePngPlaceholder",
+      title: "png для карточки placeholder",
+      type: "image",
+      options: {
+        hotspot: true
+      }
+    },
+    {
       name: "title",
       title: "Название",
       type: "string"

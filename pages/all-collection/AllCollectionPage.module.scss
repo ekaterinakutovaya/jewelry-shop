@@ -1,0 +1,105 @@
+@import '~styles/mixins.scss';
+
+.back {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 50px 0 0;
+
+    @include for-phone-only {
+    padding: 0;
+  }
+}
+
+.title {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 700;
+    font-size: 82px;
+    color: black;
+    letter-spacing: 2px;
+    line-height: 1;
+    padding-bottom: 20px;
+
+    @include for-phone-only {
+        //color: #fff;
+        font-size: 38px;
+        text-align: center;
+    }
+
+    @include for-tablet-portrait-only {
+        //color: #fff;
+        font-size: 52px;
+    }
+}
+
+.subtitle {
+    padding-left: 3px;
+    font-weight: 200;
+    font-size: 32px;
+    color: black;
+    letter-spacing: 2px;
+    padding-bottom: 30px;
+
+    @include for-phone-only {
+        //color: #fff;
+        font-size: 20px;
+        padding-left: 0;
+        text-align: center;
+    }
+
+    @include for-tablet-portrait-only {
+        //color: #fff;
+        font-size: 24px;
+    }
+}
+
+
+.button {
+    display: inline-block;
+    border-radius: 2px;
+    border: 1px solid black;
+    cursor: pointer;
+    font-size: 16px;
+    text-decoration: none;
+    font-weight: 300;
+    padding: 15px 50px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-left: 2px;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+        background-color: #fff;
+        color: #000;
+    }
+
+    background-color: #212529;
+    color: #fcfbf9;
+
+    &:hover {
+        background-color: transparent;
+        color: var(--color-default);
+    }
+
+    @include for-phone-only {
+        margin: 0;
+        //color: #fff;
+        //border: 1px solid #fff;
+        //background-color: transparent;
+
+        &:hover {
+            //background-color: #fff;
+            //color: #000;
+        }
+    }
+
+    @include for-tablet-portrait-only {
+        //color: #fff;
+        //border: 1px solid #fff;
+        //background-color: transparent;
+
+        &:hover {
+            //background-color: #fff;
+            //color: #000;
+        }
+    }
+}

@@ -9,7 +9,7 @@ const Product = ({ product: { title, slug, productItems } }) => {
   return (
     <Link href={`/product/${slug.current}`} passHref>
       <a>
-        <div className={styles.link}>
+        <div className={`${styles.link}`}>
           <div className={styles.image}>
             {productItems[0].imagePlaceholder ? (
               <ProgressiveImage

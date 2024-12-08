@@ -1,0 +1,51 @@
+@import "~styles/mixins.scss";
+
+.radioLabel {
+  position: relative;
+  cursor: pointer;
+  padding: 10px;
+  font-size: 14px;
+  border: 0.5px solid transparent;
+  border-radius: 0;
+  background-color: transparent;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  max-width: fit-content;
+
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  &:hover {
+    background-color: #ddd;
+  }
+
+  svg {
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+  }
+  //
+  //@include for-phone-only {
+  //  font-size: 14px;
+  //}
+}
+
+.radioLabel input {
+  position: absolute;
+  opacity: 0; /* Hide the actual radio input */
+}
+
+.radioLabel.active {
+  border: 0.5px solid #212529;
+}
+
+.radioLabel input:checked + .radioLabel {
+  background-color: #222; /* Selected button background */
+  color: #fff; /* Change text color on selection */
+  border-color: #222;
+}
+
+.radioLabel input:checked {
+  background-color: #222; /* Dark color for the selected button */
+  color: #fff; /* White text for the selected button */
+}

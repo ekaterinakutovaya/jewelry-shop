@@ -28,6 +28,11 @@ export default {
       }
     },
     {
+      title: "Камень",
+      name: "gem",
+      type: "string"
+    },
+    {
       title: "Цена",
       name: "price",
       type: "number"

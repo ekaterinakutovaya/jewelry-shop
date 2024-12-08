@@ -18,8 +18,6 @@ const LogoIcon = ({color}) => {
 
   useEffect(() => {
     setPathFill(loaderGradient.current);
-
-    console.log(loaderGradient.current);
   }, [])
 
   useLayoutEffect(() => {
@@ -36,8 +34,6 @@ const LogoIcon = ({color}) => {
       }
     );
   }, [])
-  
-  console.log(loaderGradient);
 
   return (
     <>

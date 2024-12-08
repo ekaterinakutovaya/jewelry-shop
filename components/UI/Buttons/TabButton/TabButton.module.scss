@@ -1,0 +1,45 @@
+@import "~styles/mixins.scss";
+
+.tabButton {
+  position: relative;
+  cursor: pointer;
+  min-width: 100px;
+  padding: 10px;
+  font-size: 16px;
+  border: 0.5px solid transparent;
+  border-radius: 0;
+  background-color: transparent;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+  //max-width: fit-content;
+  text-align: center;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+
+  &:hover {
+    background-color: #ddd;
+    //border: 1px solid #e7e7e7;
+  }
+
+  svg {
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+  }
+
+  @include for-phone-only {
+    font-size: 14px;
+    min-width: 70px;
+  }
+}
+
+.tabButton input {
+  position: absolute;
+  opacity: 0; /* Hide the actual radio input */
+}
+
+.tabButton.active {
+  border: 0.5px solid #212529;
+}

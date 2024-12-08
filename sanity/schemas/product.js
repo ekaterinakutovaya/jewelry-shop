@@ -20,6 +20,11 @@ export default {
       ]
     },
     {
+      name: "category",
+      title: "Категория",
+      type: "string"
+    },
+    {
       name: "slug",
       title: "ID",
       type: "slug",

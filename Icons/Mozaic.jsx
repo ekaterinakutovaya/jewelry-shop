@@ -2,7 +2,7 @@ import React from "react";
 
 const Mozaic = () => {
   return (
-    <svg display="none">
+    <svg className="hidden">
       <symbol id="mozaic" viewBox="0 0 735.000000 735.000000">
         <g
           transform="translate(0.000000,735.000000) scale(0.100000,-0.100000)"

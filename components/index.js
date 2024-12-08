@@ -1,4 +1,5 @@
 export {default as AboutPreview} from './AboutPreview/AboutPreview';
+export {default as Hero} from './Hero/Hero';
 export { default as BlockDevider } from "./BlockDevider/BlockDevider";
 export { default as CollectionsPreview } from "./CollectionSlider/CollectionsPreview.jsx";
 export { default as ContactUs } from "./ContactUs/ContactUs";
@@ -12,6 +13,7 @@ export { default as Logo } from './Logo/Logo';
 export { default as LogoIcon } from "./LogoIcon/LogoIcon";
 export { default as Navbar } from "./Navbar/Navbar";
 export { default as Product } from "./Product/Product";
+export { default as CollectionItem } from "./CollectionItem/CollectionItem";
 export { default as ProgressiveImage } from "./ProgressiveImage/ProgressiveImage";
 export { default as QueryForm } from "./QueryForm/QueryForm";
 export { default as RandomPreview } from "./RandomPreview/RandomPreview";
