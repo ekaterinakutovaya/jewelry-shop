@@ -17,6 +17,9 @@ import postImages from "./postImages";
 import postParagraph from "./postParagraph";
 import footer from "./footer";
 import devider from "./devider";
+import gems from "./gems";
+import metal from "./metal";
+import product_variants from "./product_variants";
 
 export default createSchema({
   name: "default",
@@ -36,6 +39,9 @@ export default createSchema({
     footer,
     devider,
     productItem,
-    collectionItem
+    collectionItem,
+    gems,
+    metal,
+    product_variants
   ])
 });
