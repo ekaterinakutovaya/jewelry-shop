@@ -87,6 +87,8 @@ const ProductDetails = ({
     turquoise: { label: "Бирюза", color: "#219EBC" },
     emerald: { label: "Изумруд", color: "#76C893" },
     rhodolite: { label: "Родолит", color: "#FF006E" },
+    coral: { label: "Коралл", color: "#ffcad4" },
+    amethyst: { label: "Аметист", color: "#7353ba" },
   };
   
   if (!product) {
