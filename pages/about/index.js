@@ -1,34 +1,25 @@
-import { useEffect, useState } from "react";
+import {useContext} from "react";
 import { useRouter } from "next/router";
 
 import { client, urlFor } from "lib/client";
-import { fetchInstagramFeed } from "lib/api";
-import { Intro, InstagramPosts, GoBackButton, ContactUs, Layout } from "components";
+import { Intro, GoBackButton, ContactUs, Layout } from "components";
 
 import styles from "./About.module.scss";
+import {LanguageContext} from "../../context/LanguageContext";
 
 const About = ({ about }) => {
   const router = useRouter();
-  const { topImage, title, blocks, topImagePlaceholder } = about[0];
-  const [feed, setFeed] = useState({});
-
-  useEffect(() => {
-    fetchInstagramFeed()
-      .then(response => setFeed(response))
-
-    return () => {
-      setFeed({})
-    }
-  }, [])
+  const { locale } = useContext(LanguageContext);
+  const { topImage, title_ru, title_en, blocks, topImagePlaceholder } = about[0];
 
   const handleGoBack = () => {
     router.back();
   }
 
   return (
-    <Layout title={title}>
+    <Layout title={locale === "ru" ? title_ru : title_en}>
       <h1 aria-label="Уникальные ювелирные украшения Yuliya Kutovaya Jewelry Кутовая Юлия заказать в Ташкенте"></h1>
-      <Intro image={topImage} placeholder={topImagePlaceholder} title={title} />
+      <Intro image={topImage} placeholder={topImagePlaceholder} title={locale === "ru" ? title_ru : title_en} />
 
       <section className={styles.section}>
         <div className="container">
@@ -39,13 +30,13 @@ const About = ({ about }) => {
             <div className={styles.row} key={block._key}>
               <div className={styles.imageCol}>
                 <div className={styles.image}>
-                  <img src={urlFor(block.blockImage)} alt={block.blockTitle} />
+                  <img src={urlFor(block.blockImage)} alt={block?.[`blockTitle_${locale}`]} />
                 </div>
               </div>
 
               <div className={styles.textCol}>
-                <h3 className={styles.title}>{block.blockTitle}</h3>
-                {block.paragraph.map((p, index) => (
+                <h3 className={styles.title}>{block?.[`blockTitle_${locale}`]}</h3>
+                {block?.[`paragraph_${locale}`].map((p, index) => (
                   <p className={styles.text} key={index}>
                     {p}
                   </p>
@@ -55,8 +46,6 @@ const About = ({ about }) => {
           ))}
         </div>
       </section>
-      
-      {feed && <InstagramPosts feed={feed} />}
 
       <ContactUs />
     </Layout>

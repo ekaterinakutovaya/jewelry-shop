@@ -6,6 +6,7 @@ import Script from 'next/script'
 import { existsGaId, GA_TRACKING_ID } from '../lib/ga'
 
 import { ScrollUpButton } from "components";
+import {LanguageProvider} from "../context/LanguageContext";
 
 function MyApp({ Component, pageProps}) {
 
@@ -34,7 +35,7 @@ function MyApp({ Component, pageProps}) {
             />
           </>
       )}
-        <Component {...pageProps} />
+      <LanguageProvider><Component {...pageProps} /></LanguageProvider>
       
         <ToastContainer
           autoClose={4000}

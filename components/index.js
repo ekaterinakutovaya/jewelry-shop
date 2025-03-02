@@ -17,10 +17,12 @@ export { default as CollectionItem } from "./CollectionItem/CollectionItem";
 export { default as ProgressiveImage } from "./ProgressiveImage/ProgressiveImage";
 export { default as QueryForm } from "./QueryForm/QueryForm";
 export { default as RandomPreview } from "./RandomPreview/RandomPreview";
+export { default as RelatedProducts } from "./RelatedProducts/RelatedProducts";
 export { default as Scetch } from "./Scetch/Scetch";
 export { default as Top } from "./Top/Top";
 export { default as TopMobile } from "./Top/TopMobile";
 export { default as Layout } from './Layout';
+export { default as LanguageSwitcher } from './LanguageSwitcher/LanguageSwitcher';
 
 export { default as DropdownMenu } from "./UI/DropdownMenu/DropdownMenu";
 export { default as Button } from "./UI/Buttons/Button/Button";

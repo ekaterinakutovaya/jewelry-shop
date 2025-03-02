@@ -1,14 +1,17 @@
-import { useState } from 'react';
+import {useContext, useState} from "react";
 
 import { makePostRequest } from "lib/api";
 
 import { Button } from 'components';
 import styles from "./ContactUs.module.scss";
+import {LanguageContext} from "../../context/LanguageContext";
+import {useTranslations} from "../../hooks/useTranslations";
 
 const ContactUs = () => {
   const [data, setData] = useState({ name: '', email: '', message: '' });
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const t = useTranslations();
 
   const { name, email, message } = data;
 
@@ -33,7 +36,7 @@ const ContactUs = () => {
   return (
     <section className={styles.wrapper}>
       <div className="container">
-        <h2>Напишите нам</h2>
+        <h2>{t.contact_us}</h2>
 
         {!isFormSubmitted ? (
           <div className={styles.form}>
@@ -43,7 +46,7 @@ const ContactUs = () => {
                 type="text"
                 name="name"
                 className={styles.name}
-                placeholder="Имя"
+                placeholder={t.your_name}
                 value={name}
                 onChange={handleChangeInput}
               />
@@ -64,20 +67,20 @@ const ContactUs = () => {
                 name="message"
                 rows="10"
                 className={styles.message}
-                placeholder="Сообщение"
+                placeholder={t.message}
                 value={message}
                 onChange={handleChangeInput}
               />
             </div>
             <Button type="dark" onClick={onSubmit}>
-              {!loading ? 'Отправить' : 'Отправляется...'}
+              {!loading ? t.send : t.sending}
             </Button>
 
           </div>
         ) : (
           <div>
             <h3 className={styles.success}>
-              Сообщение отправлено!
+              {t.sent}
             </h3>
           </div>
         )}

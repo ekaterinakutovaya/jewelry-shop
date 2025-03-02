@@ -30,8 +30,14 @@ export default {
     {
       title: "Камень",
       name: "gem",
-      type: "string"
+      type: "reference",
+      to: [{ type: "gems" }]
     },
+    // {
+    //   title: "Камень",
+    //   name: "gem",
+    //   type: "string"
+    // },
     {
       title: "Цена",
       name: "price",

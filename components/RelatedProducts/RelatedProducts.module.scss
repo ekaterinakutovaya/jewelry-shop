@@ -1,0 +1,74 @@
+@import "~styles/mixins.scss";
+
+.wrapper {
+  position: relative;
+  padding: 20px 40px;
+
+  @include for-phone-only {
+    padding: 20px 60px;
+  }
+
+  @include for-tablet-portrait-only {
+    padding: 20px 70px;
+  }
+
+  .swiper-button-disabled {
+    svg {
+     fill: red;
+    }
+
+  }
+}
+
+.title {
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 700;
+  font-size: 32px;
+  margin-bottom: 50px;
+
+  @include for-phone-only {
+    font-size: 24px;
+  }
+
+  @include for-tablet-portrait-only {
+    font-size: 28px;
+  }
+}
+
+.swiperContainer {
+  position: relative;
+  //display: flex;
+  //align-items: center;
+}
+
+.navButton {
+  //position: absolute;
+  //top: 50%;
+  //transform: translateY(-50%);
+  //z-index: 10000;
+  ////background: rgba(0, 0, 0, 0.5);
+  ////color: white;
+  ////border: none;
+  ////padding: 10px 15px;
+  ////cursor: pointer;
+  //font-size: 52px;
+  ////border-radius: 50%;
+  //display: block;
+  //color: #adb5bd;
+  //width: 50px;
+  //height: 50px;
+  //cursor: pointer;
+  ////transition: 0.3s ease-in-out;
+
+
+}
+
+.prevButton {
+  //left: -60px;
+  //cursor: pointer;
+}
+
+.nextButton {
+  //right: -60px;
+  //cursor: pointer;
+}

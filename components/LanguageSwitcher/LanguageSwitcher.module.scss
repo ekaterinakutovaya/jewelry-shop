@@ -1,0 +1,16 @@
+@import "~styles/mixins.scss";
+
+.wrapper {
+  border-left: 1px solid #212529;
+  padding-left: 40px;
+
+  @include for-phone-only {
+    border-left: unset;
+    padding-left: 0;
+  }
+
+  @include for-tablet-portrait-only {
+    border-left: unset;
+    padding-left: 0;
+  }
+}

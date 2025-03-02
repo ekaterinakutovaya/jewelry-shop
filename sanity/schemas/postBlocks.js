@@ -26,7 +26,12 @@ export default {
     },
     {
       title: "Описание",
-      name: 'caption',
+      name: 'caption_ru',
+      type: 'string'
+    },
+    {
+      title: "Описание En",
+      name: 'caption_en',
       type: 'string'
     },
     {
@@ -42,7 +47,16 @@ export default {
     },
     {
       title: "Параграфы блока",
-      name: "paragraph",
+      name: "paragraph_ru",
+      type: "array",
+      of: [{ type: "text" }],
+      options: {
+        hotspot: true
+      }
+    },
+    {
+      title: "Параграфы блока En",
+      name: "paragraph_en",
       type: "array",
       of: [{ type: "text" }],
       options: {

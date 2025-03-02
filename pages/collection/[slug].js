@@ -1,15 +1,12 @@
-import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 import { client } from "lib/client";
-import { fetchInstagramFeed } from "lib/api";
 import {
   Top,
   TopMobile,
   Product,
   GetLook,
   GetLookMobile,
-  InstagramPosts,
   GoBackButton,
   ContactUs,
   Layout,
@@ -18,8 +15,8 @@ import {
 
 import styles from "./CollectionPage.module.scss";
 
-const CollectionPage = ({ collection, products, randomDevider }) => {
-
+const CollectionPage = ({ collection, pieces, randomDevider }) => {
+  
   const router = useRouter();
   const {
     topImage,
@@ -30,16 +27,6 @@ const CollectionPage = ({ collection, products, randomDevider }) => {
     imagePlaceholder,
     manuscriptURL
   } = collection;
-  const [feed, setFeed] = useState({});
-
-  useEffect(() => {
-    fetchInstagramFeed()
-      .then(response => setFeed(response))
-
-    return () => {
-      setFeed({})
-    }
-  }, [])
 
   const handleGoBack = e => {
     e.preventDefault();
@@ -66,10 +53,10 @@ const CollectionPage = ({ collection, products, randomDevider }) => {
         <GoBackButton handleGoBack={handleGoBack} />
       </div>
 
-      <div className="container">
+      <div className="container mt-4">
         <div className="productsWrapper">
-          {products?.map((product) => (
-            <Product key={product._id} product={product} />
+          {pieces?.map((piece) => (
+            <Product key={piece._id} piece={piece} />
           ))}
         </div>
       </div>
@@ -86,8 +73,6 @@ const CollectionPage = ({ collection, products, randomDevider }) => {
       {/* {manuscriptURL ? (
         <Video/>
       ) : ''} */}
-      
-      {feed && <InstagramPosts feed={feed} />}
 
       <ContactUs />
     </Layout>
@@ -116,22 +101,86 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params: { slug, id } }) => {
-  const query = `*[_type == "collection" && slug.current == '${slug}'][0] {
-    title, image, topImage, imagePlaceholder, title, subTitle, lookImage, lookBackgroundImage,
-    "manuscriptURL": manuscript.asset->url
-  }`;
-  const productsQuery = `*[_type == "product" && tag == '${slug}']`;
-  const deviderQuery = '*[_type == "devider"]';
+  const collectionQuery = `*[_type == "collection" && slug.current == '${slug}'][0] {
+  _id,
+  title,
+  image,
+  topImage,
+  imagePlaceholder,
+  title,
+  subTitle,
+  lookImage,
+  lookBackgroundImage,
+  "manuscriptURL": manuscript.asset->url
+}`;
+ 
+  const collection = await client.fetch(collectionQuery);
+  if (!collection) {
+    return {
+      notFound: true,
+    };
+  }
   
-
-  const collection = await client.fetch(query);
-  const products = await client.fetch(productsQuery);
+  const modelsQuery = `*[_type == "model"]{
+    _id,
+    _rev,
+    title,
+    titleEn,
+    slug,
+    category->,
+    collection->,
+    piece[]->{
+      _id,
+      title,
+      collection->,
+      price,
+      gem->{
+        _id,
+        key,
+        title_ru,
+        title_en
+      },
+      category->,
+      randomPreview,
+      itemDesc,
+      photos[]{
+        _key,
+        itemImage{
+          asset->{
+            _id,
+            url
+          }
+        },
+        imagePlaceholder{
+          asset->{
+            _id,
+            url
+          }
+        }
+      }
+    }
+  }`;
+  
+  const deviderQuery = '*[_type == "devider"]';
   const devider = await client.fetch(deviderQuery);
-
+  
+  const models = await client.fetch(modelsQuery);
+  
+  let pieces = models.filter((m) => m.collection?._id === collection._id && m._id !== collection._id)
+      .flatMap((model) =>
+      model.piece.map((p) => ({
+        ...p,
+        title: model.title, // Include model title
+        titleEn: model.titleEn, // Include model title
+        slug: model.slug, // Include model slug
+        photos: p.photos?.length ? p.photos : [], // Ensure photos exist
+      }))
+  );
+  
   let randomDevider = devider[Math.floor(Math.random() * devider.length)];
 
   return {
-    props: { collection, products, randomDevider }
+    props: { collection, pieces, randomDevider }
   };
 };
 

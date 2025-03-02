@@ -4,13 +4,13 @@ import Image from "next/image";
 import { urlFor } from "../../lib/client";
 import ProgressiveImage from "../ProgressiveImage/ProgressiveImage";
 import Link from "next/link";
+import {useTranslations} from "../../hooks/useTranslations";
 
 const CollectionItem = ({ collection, reverse }) => {
-  const { title, subTitle, image, topImage, itemImageModel, itemImageModelPlaceholder, itemImage1, itemImage1Placeholder, imagePng, imagePngPlaceholder } = collection;
+  const t = useTranslations();
+  const { title, subTitle, image, topImage, itemImageModel, itemImageModelPlaceholder, itemImage1, itemImage1Placeholder } = collection;
   
   return (
-      // <div className="w-full min-h-[500px] flex border-solid border-t border-b border-[rgb(231,231,231)]">
-      
       <>
         <div className="flex flex-col md:hidden border-solid border-b border-[rgb(231,231,231)]">
           
@@ -29,7 +29,6 @@ const CollectionItem = ({ collection, reverse }) => {
                       alt={title}
                       layout="fill"
                       objectFit="cover"
-                      // style={{ height: "600px" }}
                       className="h-[600px]"
                   />
               )}
@@ -41,7 +40,7 @@ const CollectionItem = ({ collection, reverse }) => {
             <p className={styles.subtitle}>{subTitle || ""}</p>
             
             <Link href={`/collection/${collection.slug.current}`}>
-              <a className={styles.button}>Смотреть</a>
+              <a className={styles.button}>{t.view}</a>
             </Link>
           </div>
         </div>
@@ -55,7 +54,7 @@ const CollectionItem = ({ collection, reverse }) => {
             <p className={styles.subtitle}>{subTitle || ""}</p>
             
             <Link href={`/collection/${collection.slug.current}`}>
-              <a className={styles.button}>Смотреть</a>
+              <a className={styles.button}>{t.view}</a>
             </Link>
           </div>
           
@@ -74,7 +73,6 @@ const CollectionItem = ({ collection, reverse }) => {
                       alt={title}
                       layout="fill"
                       objectFit="cover"
-                      // style={{ height: "600px" }}
                       className="h-[600px]"
                   />
               )}
@@ -94,7 +92,6 @@ const CollectionItem = ({ collection, reverse }) => {
                       alt={title}
                       layout="fill"
                       objectFit="cover"
-                      // style={{ height: "600px" }}
                       className="h-[600px]"
                   />
               )}

@@ -1,50 +1,24 @@
-import { useState, useEffect } from "react";
 import { HiOutlinePhone, HiOutlineMail } from "react-icons/hi";
 
-import { urlFor } from "lib/client";
 import { Instagram, Telegram } from "Icons";
 import { Logo } from "components";
 
 import styles from "./Footer.module.scss";
+import {useTranslations} from "../../hooks/useTranslations";
 
-const Footer = ({ footer }) => {
-  const [footerStyles, setFooterStyles] = useState([{
-    backgroundColor: "#f2f0f4",
-    borderTop: "1px solid transparent"
-  }]);
-
-  useEffect(() => {
-    if (footer.length) {
-      if (footer[0].backgroundImage) {
-        setFooterStyles(prevState => [
-          ...prevState,
-          {
-            backgroundImage: `url(${urlFor(footer[0].backgroundImage)})`
-          }
-        ]);
-      } else {
-        setFooterStyles(prevState => [
-          ...prevState,
-          {
-            backgroundColor: `${footer[0].backgroundColor}`,
-            borderTop: `${footer[0].borderTopSize}px solid ${footer[0].borderTopColor}`
-          }
-        ]);
-      }
-    }
-
-
-    return () => {
-      setFooterStyles([]);
-    };
-  }, [footer]);
-
+const Footer = () => {
+  const t = useTranslations();
+  
+  
   return (
-    <div className={styles.footer} style={footerStyles[0]}>
+    <div className={styles.footer} style={{
+      backgroundColor: "#f2f0f4",
+      borderTop: "1px solid transparent"
+    }}>
       <div className="container">
         <div className={styles.content}>
           <div className="d-flex justify-content-center">
-            <Logo color={footer.length && footer[0].textColor} />
+            <Logo color="#212529" />
           </div>
 
           <div className={styles.inner}>
@@ -54,7 +28,7 @@ const Footer = ({ footer }) => {
                 rel="noreferrer"
                 href="https://www.instagram.com/yuliya_kutovaya_jewelry/"
                 style={{
-                  stroke: `${footer.length && footer[0].textColor}`,
+                  stroke: "#212529",
                 }}
               >
                 <svg className={styles.instagramIcon}>
@@ -66,7 +40,7 @@ const Footer = ({ footer }) => {
                 target="_blank"
                 href="https://t.me/yuliya_kutovaya_jewelry"
                 rel="noreferrer"
-                style={{ fill: `${footer.length && footer[0].textColor}` }}
+                style={{ fill: "#212529" }}
               >
                 <svg className={styles.telegramIcon}>
                   <use xlinkHref="#telegram" />
@@ -77,7 +51,7 @@ const Footer = ({ footer }) => {
 
             <div
               className={styles.contacts}
-              style={{ color: `${footer.length && footer[0].textColor}` }}
+              style={{ color: "#212529" }}
             >
               <a href="tel:+998977501173">
                 <HiOutlinePhone /> + (998) 97 750-11-73
@@ -94,15 +68,15 @@ const Footer = ({ footer }) => {
       <div
         className={styles.copyright}
         style={{
-          color: `${footer.length && footer[0].textColor}`,
-          backgroundColor: `${footer.length && footer[0].copyrightColor}`,
-          borderTop: `1px solid ${footer.length && footer[0].borderColor}`,
+          color: "#212529",
+          backgroundColor: "#f2f0f4",
+          borderTop: `1px solid #776c84`,
         }}
       >
         <div className={styles.text}>
           <p>&copy;&nbsp;Yuliya Kutovaya Jewelry {new Date().getFullYear()}</p>
           <p className="my-2">
-            Разработка сайта
+            {t.developer}
             <a
               href="https://ekaterina.kutovaya.uz"
               target="_blank"

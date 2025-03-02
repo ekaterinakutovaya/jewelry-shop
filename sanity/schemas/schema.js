@@ -1,9 +1,7 @@
 import createSchema from 'part:@sanity/base/schema-creator';
 import schemaTypes from 'all:part:@sanity/base/schema-type';
 
-import product from './product';
 import collection from "./collection";
-import allCollection from "./allCollection";
 import category from "./category";
 import about from "./about";
 import aboutParagraph from "./aboutParagraph";
@@ -19,13 +17,15 @@ import footer from "./footer";
 import devider from "./devider";
 import gems from "./gems";
 import metal from "./metal";
-import product_variants from "./product_variants";
+import model from "./model";
+import piece from "./piece";
+import photo from "./photo";
 
 export default createSchema({
   name: "default",
   types: schemaTypes.concat([
-    product,
-    allCollection,
+    piece,
+    model,
     collection,
     category,
     about,
@@ -42,6 +42,6 @@ export default createSchema({
     collectionItem,
     gems,
     metal,
-    product_variants
+    photo
   ])
 });

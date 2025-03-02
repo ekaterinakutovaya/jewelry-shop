@@ -1,14 +1,12 @@
-import { useState, useEffect } from "react";
+import {useState, useEffect, useContext} from "react";
 import { useRouter } from "next/router";
 import { AiOutlineFullscreenExit } from "react-icons/ai";
 
 import { client, urlFor } from "lib/client";
-import { fetchInstagramFeed } from "lib/api";
 import {
   GoBackButton,
   RandomPreview,
   BlockDevider,
-  InstagramPosts,
   ProgressiveImage,
   ContactUs,
   Layout,
@@ -16,6 +14,9 @@ import {
 
 import styles from "./ProductDetails.module.scss";
 import GemButton from "../../components/UI/Buttons/GemButton/GemButton";
+import RelatedProducts from "../../components/RelatedProducts/RelatedProducts";
+import {LanguageContext} from "../../context/LanguageContext";
+import {useTranslations} from "../../hooks/useTranslations";
 
 function currencyFormatter(num) {
   let formatter = new Intl.NumberFormat("ru", {
@@ -28,45 +29,41 @@ function currencyFormatter(num) {
 }
 
 const ProductDetails = ({
-  product,
+    model,
   randomItem,
-  randomDevider,
+ randomDevider, relatedPieces, gems
 }) => {
   const router = useRouter();
+  const { locale } = useContext(LanguageContext);
+  const t = useTranslations();
   
-  
-  
-  const { title, productItems } = product;
+  const { title, titleEn, piece } = model;
   const [index, setIndex] = useState(0);
   const [activeGem, setActiveGem] = useState('granat');
   const [fullscreen, setFullscreen] = useState(false);
-  const [feed, setFeed] = useState({});
   const [filteredItems, setFilteredItems] = useState([]);
   let activeClassName = styles.active;
   
-  const {asPath} = router;
+  useEffect(() => {
+    if (router.isReady) {
+      const gemFromQuery = router.query.gem || "";
+      if (gemFromQuery) {
+        setActiveGem(gemFromQuery);
+      } else if (piece?.length > 0) {
+        setActiveGem(piece[0]?.gem?.key || "");
+      }
+    }
+  }, [router.isReady, router.query.gem, piece]);
   
   useEffect(() => {
-    window.scroll(0, 0);
-    const defaultGem = asPath.split("-").pop();
-    setActiveGem(defaultGem);
-  }, [asPath]);
-  
-  useEffect(() => {
-    const filtered = productItems?.filter(item => item.gem === activeGem || !item.gem);
-    setFilteredItems(filtered);
+    if (!piece || !activeGem) return;
     
+    const selectedItem = piece.find((item) => item.gem?.key === activeGem) || piece[0];
+    setFilteredItems(selectedItem);
     setIndex(0);
-  }, [activeGem, productItems]);
-
-  useEffect(() => {
-    fetchInstagramFeed().then((response) => setFeed(response));
-
-    return () => {
-      setFeed({});
-    };
-  }, []);
-
+  }, [activeGem, piece]);
+  
+  
   const fullScreenHandler = () => {
     setFullscreen(!fullscreen);
   };
@@ -76,27 +73,22 @@ const ProductDetails = ({
   };
   
   // Only show unique gems that are valid (exclude empty gems) for the GemButton
-  const uniqueGemsForButtons = [...new Set(productItems.map((item) => item.gem).filter(Boolean))];
+  const uniqueGemsForButtons = [...new Set(piece.map((item) => item.gem?.key).filter(Boolean))];
   
-  const gemLabels = {
-    granat: { label: "Гранат", color: "red" },
-    peridot: { label: "Перидот (хризолит)", color: "green" },
-    blue_topaz: { label: "Голубой топаз", color: "blue" },
-    pink_tourmalines: { label: "Розовые турмалины", color: "pink" },
-    apatit: { label: "Апатиты", color: "#6d878b" },
-    turquoise: { label: "Бирюза", color: "#219EBC" },
-    emerald: { label: "Изумруд", color: "#76C893" },
-    rhodolite: { label: "Родолит", color: "#FF006E" },
-    coral: { label: "Коралл", color: "#ffcad4" },
-    amethyst: { label: "Аметист", color: "#7353ba" },
-  };
+  const gemLabels = gems.reduce((acc, gem) => {
+    acc[gem.key] = {
+      label: locale === "en" ? gem.title_en : gem.title_ru,
+      color: gem.color || "black",
+    };
+    return acc;
+  }, {});
   
-  if (!product) {
-    return <div>Loading...</div>; // or some fallback content
+  if (!piece) {
+    return <div>Loading...</div>;
   }
 
   return (
-    <Layout title={title}>
+    <Layout title={locale === "ru" ? title : titleEn}>
 
       <h1 aria-label={`${title} заказать в Ташкенте`}></h1>
       <div className={styles.back}>
@@ -108,60 +100,57 @@ const ProductDetails = ({
           <div className={`${styles.col}`}>
             <div className={styles.imagesWrapper}>
               <div className={styles.thumbnailsWrapper}>
-                {filteredItems && filteredItems.map((item, i) => (
+                {filteredItems?.photos?.map((item, i) => (
                     <div
                         key={i}
-                        className={
-                          i === index
-                              ? `${styles.thumbnails} ${activeClassName}`
-                              : `${styles.thumbnails}`
-                        }
+                        className={i === index ? `${styles.thumbnails} ${activeClassName}` : styles.thumbnails}
                         onClick={() => setIndex(i)}
                     >
                       {item?.itemImage && (
                           <ProgressiveImage
-                              src={urlFor(item.itemImage)}
-                              placeholder={urlFor(item.imagePlaceholder)}
+                              src={urlFor(item.itemImage.asset.url)}
+                              placeholder={urlFor(item.imagePlaceholder.asset.url)}
                               alt={`${title} заказать в Ташкенте`}
                           />
                       )}
                     </div>
                 ))}
               </div>
-
+              
               <div
-                className={
-                  fullscreen ? `${styles.imageFullscreen}` : `${styles.image}`
-                }
-                onClick={fullScreenHandler}
+                  className={
+                    fullscreen ? `${styles.imageFullscreen}` : `${styles.image}`
+                  }
+                  onClick={fullScreenHandler}
               >
                 <AiOutlineFullscreenExit
-                  className={
-                    fullscreen
-                      ? `${styles.fullscreenExit}`
-                      : `${styles.fullscreenExit} d-none`
-                  }
-                  onClick={() => setFullscreen(!fullscreen)}
+                    className={
+                      fullscreen
+                          ? `${styles.fullscreenExit}`
+                          : `${styles.fullscreenExit} d-none`
+                    }
+                    onClick={() => setFullscreen(!fullscreen)}
                 />
-                {filteredItems[index]?.itemImage ? (
+                {filteredItems?.photos?.[index]?.itemImage ? (
                     <ProgressiveImage
-                        src={urlFor(filteredItems[index].itemImage)}
-                        placeholder={urlFor(filteredItems[index].imagePlaceholder)}
+                        src={urlFor(filteredItems.photos[index].itemImage)}
+                        placeholder={urlFor(filteredItems.photos[index].imagePlaceholder)}
                         alt={`${title} заказать в Ташкенте`}
                     />
                 ) : (
-                    <p>No image available</p>  // You can show a placeholder or text if no image exists
+                    <p>No image available</p>
                 )}
               </div>
             </div>
           </div>
-
+          
           <div className={`${styles.col}`}>
             <div className={styles.description}>
-              <h2 className={styles.title}>{title}</h2>
+              <h2 className={styles.title}>{locale === "ru" ? title : titleEn}</h2>
+              
               {uniqueGemsForButtons.length ? (
                   <div className={`${styles.gemSelector}`}>
-                    <span>Камень</span>
+                    <span>{t.gem}</span>
                     <div className={`${styles.gemSelectorInner}`}>
                       {uniqueGemsForButtons.map((gem, i) => (
                           <GemButton
@@ -177,17 +166,17 @@ const ProductDetails = ({
                   </div>
               ) : ""}
               
+              {filteredItems?.[`itemDesc_${locale}`]?.length > 0
+                  ? filteredItems[`itemDesc_${locale}`].map((desc, i) => (
+                      <p className={styles.info} key={i}>{desc}</p>
+                  ))
+                  : <p className={styles.info}>{locale === "ru" ? "Описание отсутствует" : "Description not available"}</p>
+              }
               
-              {filteredItems && filteredItems[index]?.itemDesc?.map((desc, i) => (
-                  <p className={styles.info} key={i}>
-                    {desc}
-                  </p>
-              ))}
-              
-              {filteredItems && filteredItems[0]?.price ? (
+              {filteredItems?.price ? (
                   <>
                     <p className={styles.price}>
-                      {currencyFormatter(filteredItems[0].price)}
+                      {currencyFormatter(filteredItems?.price)}
                     </p>
                     <a
                         className="button button--dark"
@@ -195,19 +184,19 @@ const ProductDetails = ({
                         href="https://t.me/yuliya_kutovaya_jewelry"
                         rel="noreferrer"
                     >
-                      Заказать
+                      {t.order_now}
                     </a>
                   </>
               ) : (
                   <>
-                    <p className={styles.price}>Цена по запросу</p>
+                    <p className={styles.price}>{t.price_request}</p>
                     <a
                         className="button button--dark"
                         target="_blank"
                         href="https://t.me/yuliya_kutovaya_jewelry"
                         rel="noreferrer"
                     >
-                      Узнать цену
+                      {t.know_price}
                     </a>
                   </>
               )}
@@ -215,33 +204,37 @@ const ProductDetails = ({
           </div>
         </div>
       </div>
-
-      {randomDevider.backgroundImage ? (
-        <BlockDevider randomDevider={randomDevider} />
-      ) : (
-        ""
-      )}
-
-      <RandomPreview randomItem={randomItem} />
       
-      {feed && <InstagramPosts feed={feed} />}
-
-      <ContactUs />
+      {relatedPieces && relatedPieces.length > 0 && (
+          <div className="container">
+            <RelatedProducts relatedProducts={relatedPieces}/>
+          </div>
+      )}
+      
+      {randomDevider.backgroundImage ? (
+          <BlockDevider randomDevider={randomDevider} />
+      ) : (
+          ""
+      )}
+      
+      {randomItem && <RandomPreview randomItem={randomItem} />}
+      
+      <ContactUs/>
     </Layout>
   );
 };
 
 export const getStaticPaths = async () => {
-  const query = `*[_type == "product"] {
+  const query = `*[_type == "model"] {
     slug {
       current
     }
   }
   `;
 
-  const products = await client.fetch(query);
+  const models = await client.fetch(query);
 
-  const paths = products.map((product) => ({
+  const paths = models.map((product) => ({
     params: {
       slug: product.slug.current,
     },
@@ -254,26 +247,130 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = async ({ params: { slug } }) => {
-  const query = `*[_type == "product" && slug.current == '${slug}'][0]`;
-  const productsQuery = '*[_type == "product"]';
+  const modelQuery = `*[_type == "model" && slug.current == '${slug}'][0]
+  {
+    _id,
+    title,
+    titleEn,
+    slug,
+    category->,
+    collection->,
+    piece[]->{
+      _id,
+      title,
+      price,
+      randomPreview,
+      gem->{
+        _id,
+        key,
+        title_ru,
+        title_en
+      },
+      itemDesc_ru,
+      itemDesc_en,
+      photos[]{
+        _key,
+        itemImage{
+          asset->{
+            _id,
+            url
+          }
+        },
+        imagePlaceholder{
+          asset->{
+            _id,
+            url
+          }
+        }
+      }
+    }
+  }
+  `;
+  const modelsQuery = `*[_type == "model"]{
+    _id,
+    title,
+    titleEn,
+    slug,
+    category->,
+    collection->,
+    piece[]->{
+      _id,
+      title,
+      price,
+      randomPreview,
+      gem->{
+        _id,
+        key,
+        title_ru,
+        title_en
+      },
+      itemDesc_ru,
+      itemDesc_en,
+      photos[]{
+        _key,
+        itemImage{
+          asset->{
+            _id,
+            url
+          }
+        },
+        imagePlaceholder{
+          asset->{
+            _id,
+            url
+          }
+        }
+      }
+    }
+  }`;
   const deviderQuery = '*[_type == "devider"]';
+  const collectionQuery = '*[_type == "collection"]';
+  const gemsQuery = '*[_type == "gems"]';
 
-  const product = await client.fetch(query);
-  const products = await client.fetch(productsQuery);
+  const model = await client.fetch(modelQuery);
+  const models = await client.fetch(modelsQuery);
   const devider = await client.fetch(deviderQuery);
+  const collections = await client.fetch(collectionQuery);
+  const gems = await client.fetch(gemsQuery);
+  
+  const relatedPieces = models
+      .filter(
+          (m) =>
+              m.collection &&
+              m.collection._id === model?.collection?._id &&
+              m._id !== model._id
+      )
+      .map((m) => ({
+        ...m.piece?.[0],
+        slug: m.slug,
+        title: m.title,
+        titleEn: m.titleEn,
+      }))
+      .filter((p) => p !== undefined);
 
   let randomDevider = devider[Math.floor(Math.random() * devider.length)];
-
-  let newProducts = products.filter((el) => el.randomPreview !== undefined);
+  
+  let pieces = models.flatMap((model) =>
+      model.piece.map((p) => ({
+        ...p,
+        title: model.title,
+        titleEn: model.titleEn,
+        slug: model.slug,
+        photos: p.photos?.length ? p.photos : [],
+      }))
+  );
+  
+  let newProducts = pieces.filter(el => el.randomPreview !== null);
   let randomItem = newProducts[Math.floor(Math.random() * newProducts.length)];
 
   return {
     props: {
-      products,
-      product,
+      model,
       randomItem,
-      devider,
       randomDevider,
+      collections,
+      relatedPieces,
+      gems
     },
     revalidate: 10,
   };

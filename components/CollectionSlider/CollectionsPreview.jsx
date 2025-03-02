@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, {useContext, useEffect} from "react";
 import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
 import Link from "next/link";
@@ -11,9 +11,11 @@ import ArrowPrev from "./ArrowPrev/ArrowPrev";
 import ProgressiveImage from "components/ProgressiveImage/ProgressiveImage";
 
 import styles from "./CollectionsPreview.module.scss";
+import {useTranslations} from "../../hooks/useTranslations";
 
 const CollectionsPreview = ({ collections }) => {
-
+  const t = useTranslations();
+  
   const settings = {
     animationType: "fadeout",
     mouseTracking: true,
@@ -50,7 +52,7 @@ const CollectionsPreview = ({ collections }) => {
 
                   <p className={styles.subtitle}>{collection.subTitle}</p>
                   <Link href={`/collection/${collection.slug.current}`}>
-                    <a className={styles.button}>Смотреть</a>
+                    <a className={styles.button}>{t.view}</a>
                   </Link>
                 </div>
               </div>

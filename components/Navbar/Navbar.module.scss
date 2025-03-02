@@ -82,6 +82,20 @@
   }
 }
 
+.aboutUs {
+  color: inherit;
+  font-size: 16px;
+  vertical-align: middle;
+  text-transform: capitalize;
+  transition: color 0.3s linear;
+  cursor: pointer;
+
+  &:hover {
+    color: darken(white, 30%);
+    transition: color 0.3s linear;
+  }
+}
+
 .linkAbout {
   color: inherit;
   opacity: 0.9;

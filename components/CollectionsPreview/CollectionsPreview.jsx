@@ -10,15 +10,16 @@ import ArrowPrev from "./ArrowPrev/ArrowPrev";
 import ProgressiveImage from "components/ProgressiveImage/ProgressiveImage";
 
 import styles from "./CollectionsPreview.module.scss";
+import {useTranslations} from "../../hooks/useTranslations";
 
 const CollectionsPreview = ({ collections }) => {
-
+    const t = useTranslations();
+    
     const settings = {
         dots: false,
         infinite: true,
         focusOnSelect: true,
         speed: 1000,
-        infinite: true,
         slidesToShow: 1,
         slidesToScroll: 1,
         fade: true,
@@ -57,7 +58,7 @@ const CollectionsPreview = ({ collections }) => {
 
                   <p className={styles.subtitle}>{collection.subTitle}</p>
                   <Link href={`/collection/${collection.slug.current}`}>
-                    <a className={styles.button}>Смотреть</a>
+                    <a className={styles.button}>{t.view}</a>
                   </Link>
                 </div>
               </div>

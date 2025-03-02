@@ -30,11 +30,6 @@ export default {
       type: "string"
     },
     {
-      name: "titleUz",
-      title: "Название Uz",
-      type: "string"
-    },
-    {
       name: "subTitle",
       title: "Подзаголовок",
       type: "string"

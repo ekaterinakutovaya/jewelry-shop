@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import {useContext, useEffect} from "react";
 import Link from "next/link";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -7,9 +7,13 @@ import { urlFor } from "/lib/client";
 import { Button } from "components";
 
 import styles from "./AboutPreview.module.scss";
+import {LanguageContext} from "../../context/LanguageContext";
+import {useTranslations} from "../../hooks/useTranslations";
 
 const AboutPreview = ({ about }) => {
   const { title, previewImage } = about[0];
+  const { locale } = useContext(LanguageContext);
+  const t = useTranslations();
 
   useEffect(() => {
     AOS.init({
@@ -25,12 +29,11 @@ const AboutPreview = ({ about }) => {
         <div className={styles.info}>
           <h3 className={styles.title}>Yuliya Kutovaya Jewelry</h3>
           <p className={styles.text}>
-            – это марка роскошных украшений с тонкими мотивами из самого сердца
-            Центральной Азии.
+            {t.jewellery_brand}
           </p>
-          <Button type="dark">
-            <Link href="/about">О нас</Link>
-          </Button>
+          <Link href="/about" passHref>
+            <Button type="dark">{t.about_us}</Button>
+          </Link>
         </div>
       </div>
 

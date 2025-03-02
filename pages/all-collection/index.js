@@ -5,9 +5,11 @@ import {
   Layout,
   CollectionItem
 } from "components";
+import {useTranslations} from "../../hooks/useTranslations";
 
 const AllCollectionPage = ({collections}) => {
-const title = "Коллекции"
+  const t = useTranslations();
+  const title = t.collections
 
   return (
     <Layout title={title}>

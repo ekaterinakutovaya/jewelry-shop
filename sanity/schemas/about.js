@@ -20,8 +20,13 @@ export default {
       }
     },
     {
-      name: "title",
+      name: "title_ru",
       title: "Заголовок",
+      type: "string"
+    },
+    {
+      name: "title_en",
+      title: "Заголовок EN",
       type: "string"
     },
     {

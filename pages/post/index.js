@@ -1,15 +1,19 @@
-import { useEffect } from "react";
+import {useContext, useEffect} from "react";
 import { useRouter } from "next/router";
 
 import { client, urlFor } from "lib/client";
 import { Intro, GoBackButton, Layout, Gallery, ProgressiveImage } from "components";
 
 import styles from "./Post.module.scss";
+import {LanguageContext} from "../../context/LanguageContext";
+import {useTranslations} from "../../hooks/useTranslations";
 
 
 const Post = ({ post }) => {
   const router = useRouter();
-  const { topImage, title, blocks, topImagePlaceholder } = post[0];
+  const { locale } = useContext(LanguageContext);
+  const { topImage, title_ru, title_en, blocks, topImagePlaceholder } = post[0];
+  const t = useTranslations();
 
   useEffect(() => {
     window.scroll(0, 0);
@@ -18,16 +22,16 @@ const Post = ({ post }) => {
   const handleGoBack = () => {
     router.back();
   }
-
+  
 
   return (
-    <Layout title={title}>
+    <Layout title={locale === "ru" ? title_ru : title_en}>
       <h1 aria-label="31 января День Ювелира основатель Михаил Кутовой ювелир January 31st Jeweller's day founder Michael Kutovoy jeweller"></h1>
       <div>
         <Intro
           image={topImage}
           placeholder={topImagePlaceholder}
-          title={title}
+          title={locale === "ru" ? title_ru : title_en}
         />
       </div>
 
@@ -37,8 +41,8 @@ const Post = ({ post }) => {
 
           <div className={styles.wrapper}>
             <div className={styles.info}>
-              <p className={styles.date}>31 января 2023</p>
-              <p className={styles.author}>Юлия Кутовая</p>
+              <p className={styles.date}>{t.jan_31}</p>
+              <p className={styles.author}>{t.juliya_kutovaya}</p>
             </div>
 
             <div className={styles.row}>
@@ -47,7 +51,7 @@ const Post = ({ post }) => {
               </div>
 
               <div className={styles.textCol}>
-                {blocks[0].paragraph.map((p, index) => (
+                {blocks[0]?.[`paragraph_${locale}`].map((p, index) => (
                   <p className={styles.text} key={index}>
                     {p}
                   </p>
@@ -57,23 +61,23 @@ const Post = ({ post }) => {
 
             <div className={styles.row}>
               <div className={styles.textCol}>
-                {blocks[1].paragraph.map((p, index) => (
+                {blocks[1]?.[`paragraph_${locale}`].map((p, index) => (
                   <p className={styles.text} key={index}>
                     {p}
                   </p>
                 ))}
               </div>
-
+            
               <div className={styles.imageCol}>
                 <Gallery props={blocks[1].carousel} />
               </div>
             </div>
-
+            
             <div className={styles.info}>
-              <p className={styles.date}>21 февраля 2001</p>
-              <p className={styles.author}>Михаил Кутовой</p>
+              <p className={styles.date}>{t.feb_21}</p>
+              <p className={styles.author}>{t.michael_kutovoy}</p>
             </div>
-
+            
             <div className={styles.grid}>
               <div>
                 <div className={styles.authorImage}>
@@ -85,12 +89,12 @@ const Post = ({ post }) => {
                     />
                   </div>
                 </div>
-                <div className={styles.caption}>{blocks[2].caption}</div>
+                <div className={styles.caption}>{blocks[2]?.[`caption_${locale}`]}</div>
               </div>
-
+            
               <div>
                 <div>
-                  {blocks[2].paragraph.map((p, index) => (
+                  {blocks[2]?.[`paragraph_${locale}`].map((p, index) => (
                     <p className={styles.text} key={index}>
                       {p}
                     </p>
@@ -98,10 +102,10 @@ const Post = ({ post }) => {
                 </div>
               </div>
             </div>
-
+            
             <div className={styles.grid}>
               <div></div>
-
+            
               <div>
                 <div className={styles.articleImage}>
                   <ProgressiveImage
@@ -109,11 +113,11 @@ const Post = ({ post }) => {
                     placeholder={urlFor(blocks[3].blockImageMin)}
                     alt="photo"
                   />
-                  <div className={styles.caption}>{blocks[3].caption}</div>
+                  <div className={styles.caption}>{blocks[3]?.[`caption_${locale}`]}</div>
                 </div>
-
+            
                 <div className={styles.article}>
-                  {blocks[3].paragraph.map((p, index) => (
+                  {blocks[3]?.[`paragraph_${locale}`].map((p, index) => (
                     <p className={styles.text} key={index}>
                       {p}
                     </p>
@@ -121,10 +125,10 @@ const Post = ({ post }) => {
                 </div>
               </div>
             </div>
-
+            
             <div className={styles.grid}>
               <div></div>
-
+            
               <div>
                 <div className={styles.articleImage}>
                   <ProgressiveImage
@@ -132,11 +136,11 @@ const Post = ({ post }) => {
                     placeholder={urlFor(blocks[4].blockImageMin)}
                     alt="photo"
                   />
-                  <div className={styles.caption}>{blocks[4].caption}</div>
+                  <div className={styles.caption}>{blocks[4]?.[`caption_${locale}`]}</div>
                 </div>
-
+            
                 <div className={styles.article}>
-                  {blocks[4].paragraph.map((p, index) => (
+                  {blocks[4]?.[`paragraph_${locale}`].map((p, index) => (
                     <p className={styles.text} key={index}>
                       {p}
                     </p>
@@ -144,10 +148,10 @@ const Post = ({ post }) => {
                 </div>
               </div>
             </div>
-
+            
             <div className={styles.grid}>
               <div></div>
-
+            
               <div>
                 <div className={styles.articleImage}>
                   <ProgressiveImage
@@ -155,11 +159,11 @@ const Post = ({ post }) => {
                     placeholder={urlFor(blocks[5].blockImageMin)}
                     alt="photo"
                   />
-                  <div className={styles.caption}>{blocks[5].caption}</div>
+                  <div className={styles.caption}>{blocks[5]?.[`caption_${locale}`]}</div>
                 </div>
-
+            
                 <div className={styles.article}>
-                  {blocks[5].paragraph.map((p, index) => (
+                  {blocks[5]?.[`paragraph_${locale}`].map((p, index) => (
                     <p className={styles.text} key={index}>
                       {p}
                     </p>
@@ -167,10 +171,10 @@ const Post = ({ post }) => {
                 </div>
               </div>
             </div>
-
+            
             <div className={styles.grid}>
               <div></div>
-
+            
               <div>
                 <div className={styles.articleImage}>
                   <ProgressiveImage
@@ -178,11 +182,11 @@ const Post = ({ post }) => {
                     placeholder={urlFor(blocks[6].blockImageMin)}
                     alt="photo"
                   />
-                  <div className={styles.caption}>{blocks[6].caption}</div>
+                  <div className={styles.caption}>{blocks[6]?.[`caption_${locale}`]}</div>
                 </div>
-
+            
                 <div className={styles.article}>
-                  {blocks[6].paragraph.map((p, index) => (
+                  {blocks[6]?.[`paragraph_${locale}`].map((p, index) => (
                     <p className={styles.text} key={index}>
                       {p}
                     </p>

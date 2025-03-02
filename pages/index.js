@@ -1,29 +1,27 @@
-import { useEffect, useState } from "react";
+import {useContext, useEffect, useState} from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
 import { client } from "lib/client";
-import { fetchInstagramFeed } from "lib/api";
 import {
   CollectionsPreview,
   Product,
   RandomPreview,
   Scetch,
   AboutPreview,
-  InstagramPosts,
   ContactUs,
-  Layout,
-  Hero
+  Layout
 } from "components";
 import {useRouter} from "next/router";
 import {existsGaId, GA_TRACKING_ID} from "../lib/ga";
 import TabButton from "../components/UI/Buttons/TabButton/TabButton";
+import {LanguageContext} from "../context/LanguageContext";
 
-const Home = ({ products, collections, categories, randomItem, about }) => {
+const Home = ({  collections, pieces, categories, randomItem, about }) => {
   const title = "Yuliya Kutovaya Jewelry";
-  const [feed, setFeed] = useState({});
   const router = useRouter()
-  const [selectedCategory, setSelectedCategory] = useState("all"); // default all
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const { locale } = useContext(LanguageContext);
 
   useEffect(() => {
     AOS.init({
@@ -32,13 +30,6 @@ const Home = ({ products, collections, categories, randomItem, about }) => {
     AOS.refresh();
   }, []);
   
-  
-  useEffect(() => {
-    fetchInstagramFeed().then(response => setFeed(response));
-    return () => {
-      setFeed({});
-    };
-  }, []);
   
   useEffect(() => {
     if (!existsGaId) return
@@ -55,18 +46,16 @@ const Home = ({ products, collections, categories, randomItem, about }) => {
     }
   }, [router.events])
   
-  const filteredProducts = selectedCategory === "all"
-      ? products
-      : products.filter(product => product.category === selectedCategory);
+  const filteredPieces = selectedCategory === "all"
+      ? pieces
+      : pieces.filter(piece => piece.category.slug.current === selectedCategory);
   
-  const sortedCategories = [...categories].sort((a, b) => new Date(a._createdAt) - new Date(b._createdAt));
-
+  
   return (
     <Layout title={title}>
       <h1 aria-label="Эксклюзивные ювелирные украшения Yuliya Kutovaya Jewelry Кутовая Юлия купить заказать в Ташкенте"></h1>
       <div>
         <CollectionsPreview collections={collections} />
-        {/*<Hero/>*/}
       </div>
 
       <div className="container">
@@ -76,59 +65,103 @@ const Home = ({ products, collections, categories, randomItem, about }) => {
               activeTab={selectedCategory === "all"}
               onClick={() => setSelectedCategory("all")}
           >
-            Все
+            {locale === "en" ? "All" : "Все"}
           </TabButton>
-          {sortedCategories && sortedCategories.map(item => (
-              <TabButton key={item._id}
-                         activeTab={selectedCategory === item.slug.current}
-                         onClick={() => setSelectedCategory(item.slug.current)}
+          {categories.map((category) => (
+              <TabButton
+                  key={category._id}
+                  activeTab={selectedCategory === category.slug.current}
+                  onClick={() => setSelectedCategory(category.slug.current)}
               >
-                {item.titleRu}
+                {locale === "en" ? category.titleEn : category.titleRu}
               </TabButton>
           ))}
         </div>
-        <div className="productsWrapper" data-aos={"fade"}>
-          {filteredProducts?.map((product) => (
-            <Product product={product} key={product._id} />
+        <div className="productsWrapper">
+          {filteredPieces.map((piece) => (
+              <Product piece={piece} key={piece._id} />
           ))}
         </div>
       </div>
 
       <Scetch />
-
-      <RandomPreview randomItem={randomItem} />
-
-      <AboutPreview about={about} />
       
-      {Object.keys(feed).length && <InstagramPosts feed={feed} />}
+      {randomItem && <RandomPreview randomItem={randomItem} />}
+      
+      {about && <AboutPreview about={about} />}
       <ContactUs />
     </Layout>
   );
 };
 
 export const getServerSideProps = async () => {
-  const query = '*[_type == "product"]';
-  const collectionQuery = '*[_type == "collection"]';
+  const modelsQuery = `*[_type == "model"]{
+    _id,
+    title,
+    titleEn,
+    slug,
+    category->,
+    collection->,
+    piece[]->{
+      _id,
+      title,
+      price,
+      gem->{
+        _id,
+        key,
+        title_ru,
+        title_en
+      },
+      category->,
+      randomPreview,
+      itemDesc,
+      photos[]{
+        _key,
+        itemImage{
+          asset->{
+            _id,
+            url
+          }
+        },
+        imagePlaceholder{
+          asset->{
+            _id,
+            url
+          }
+        }
+      }
+    }
+  }`;
   const categoryQuery = '*[_type == "category"]';
+  const collectionQuery = '*[_type == "collection"]';
   const aboutQuery = '*[_type == "about"]';
-  const deviderQuery = '*[_type == "devider"]';
-
-  const products = await client.fetch(query);
-  const collections = await client.fetch(collectionQuery);
+  
+  const models = await client.fetch(modelsQuery);
   const categories = await client.fetch(categoryQuery);
+  const collections = await client.fetch(collectionQuery);
   const about = await client.fetch(aboutQuery);
-  const devider = await client.fetch(deviderQuery);
-
-  let newProducts = products.filter(el => el.randomPreview !== undefined);
+  
+  let pieces = models.flatMap((model) =>
+      model.piece.map((p) => ({
+        ...p,
+        title: model.title,
+        titleEn: model.titleEn,
+        slug: model.slug,
+        photos: p.photos?.length ? p.photos : [],
+      }))
+  );
+  
+  let newProducts = pieces.filter(el => el.randomPreview !== null);
   let randomItem = newProducts[Math.floor(Math.random() * newProducts.length)];
+ 
 
   return {
     props: {
-      products,
+      pieces,
       collections,
       categories,
+      models,
       randomItem,
-      devider,
       about
     }
   };

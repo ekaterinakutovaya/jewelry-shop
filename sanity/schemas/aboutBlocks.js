@@ -5,7 +5,12 @@ export default {
   fields: [
       {
           title: "Заголовок блока",
-          name: 'blockTitle',
+          name: 'blockTitle_ru',
+          type: 'string'
+      },
+      {
+          title: "Заголовок блока En",
+          name: 'blockTitle_en',
           type: 'string'
       },
       {
@@ -15,7 +20,16 @@ export default {
       },
     {
       title: "Параграфы блока",
-      name: "paragraph",
+      name: "paragraph_ru",
+      type: "array",
+      of: [{ type: "text" }],
+      options: {
+        hotspot: true
+      }
+    },
+    {
+      title: "Параграфы блока",
+      name: "paragraph_en",
       type: "array",
       of: [{ type: "text" }],
       options: {

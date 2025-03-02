@@ -3,7 +3,7 @@ import React from 'react';
 import styles from "./PagePreloader.module.scss";
 import { LogoIcon } from "components";
 
-const PagePreloader = ({header}) => {
+const PagePreloader = () => {
 
   return (
     <div className={styles.preloader}>

@@ -2,14 +2,11 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 
-import { client } from "lib/client";
 import {Navbar, Footer, PagePreloader} from "components";
 
 
 const Layout = ({ title, children }) => {
   const { events } = useRouter();
-  const [header, setHeader] = useState([]);
-  const [footer, setFooter] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -21,28 +18,6 @@ const Layout = ({ title, children }) => {
       setLoading(false);
     });
   }, [events]);
-
-  useEffect(() => {
-    const fetchHeader = async () => {
-      const headerQuery = '*[_type == "header"]';
-      const header = await client.fetch(headerQuery);
-      setHeader(header);
-    };
-
-    const fetchFooter = async () => {
-      const footerQuery = '*[_type == "footer"]';
-      const footer = await client.fetch(footerQuery);
-      setFooter(footer);
-    };
-
-    fetchHeader();
-    fetchFooter();
-
-    return () => {
-      setHeader([]);
-      setFooter([]);
-    };
-  }, []);
 
   return (
     <>
@@ -63,15 +38,15 @@ const Layout = ({ title, children }) => {
       </Head>
 
       <header>
-        <Navbar header={header} />
+        <Navbar />
       </header>
 
       <main>{children}</main>
 
       <footer>
-        <Footer footer={footer} />
+        <Footer />
       </footer>
-       {loading && <PagePreloader header={header} />}
+       {loading && <PagePreloader />}
     </>
   );
 };

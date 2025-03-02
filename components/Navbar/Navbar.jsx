@@ -1,146 +1,119 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import Hamburger from "hamburger-react";
 import { useMediaQuery } from "react-responsive";
 
-import { urlFor } from "/lib/client";
-import { Logo, DropdownMenu } from "components";
+import {Logo, DropdownMenu, LanguageSwitcher} from "components";
 import { Instagram, Telegram } from "Icons";
 
 import styles from "./Navbar.module.scss";
+import {useTranslations} from "../../hooks/useTranslations";
 
-const items = [
-  {
-    value: (
-      <Link href="/all-collection" className={styles.linkAbout}>
-        Коллекции
-      </Link>
-    )
-  },
-  {
-    value: (
-      <Link href="/" className={styles.linkAbout}>
-        Все изделия
-      </Link>
-    )
-  },
-  {
-    value: (
-        <Link href="/post" className={styles.linkAbout}>
-          31 января - День Ювелира
-        </Link>
-    )
-  },
-  {
-    value: (
-      <>
-        <svg className={styles.instagramIcon}>
-          <use xlinkHref="#instagram" />
-        </svg>
-        <Instagram />
-      </>
-    ),
-    href: "https://www.instagram.com/yuliya_kutovaya_jewelry/"
-  },
-  {
-    value: (
-      <>
-        <svg className={styles.telegramIcon}>
-          <use xlinkHref="#telegram" />
-        </svg>
-        <Telegram />
-      </>
-    ),
-    href: "https://t.me/yuliya_kutovaya_jewelry"
-  },
-  {
-    value: "+ (998) 97 750-11-73",
-    href: "tel:+998977501173"
-  },
-  {
-    value: (
-      <Link href="/about" className={styles.linkAbout}>
-        О Нас
-      </Link>
-    )
-  }
-];
-
-const Navbar = ({ header }) => {
+const Navbar = () => {
   const isTabletOrMobile = useMediaQuery({ query: "(max-width: 1024px)" });
   const [isOpen, setOpen] = useState(false);
-  const [navbarStyles, setNavbarStyles] = useState([{
-    backgroundColor: "#fff",
-    borderBottom: "1px solid #e7e7e7"
-  }]);
-
-  useEffect(() => {
-   
-    if (header.length) {
-      if (header[0].backgroundImage) {
-
-        setNavbarStyles(prevState => [
-          ...prevState,
-          {
-            backgroundImage: `url(${urlFor(header[0].backgroundImage)})`
-          }
-        ]);
-      } else {
-        setNavbarStyles(prevState => [
-          ...prevState,
-          {
-            backgroundColor: `${header[0].backgroundColor}`,
-            borderBottom: `${header[0].borderBottomSize}px solid ${header[0].borderBottomColor}`
-          }
-        ]);
-      }
-    }
-
+  const t = useTranslations();
   
-    return () => {
-      setNavbarStyles([]);
-    };
-  }, [header]);
+  const items = [
+    {
+      value: (
+          <Link href="/all-collection" className={styles.linkAbout}>
+            {t.collections}
+          </Link>
+      )
+    },
+    {
+      value: (
+          <Link href="/" className={styles.linkAbout}>
+            {t.all_products}
+          </Link>
+      )
+    },
+    {
+      value: (
+          <Link href="/post" className={styles.linkAbout}>
+            {t.jewellers_day}
+          </Link>
+      )
+    },
+    {
+      value: (
+          <>
+            <svg className={styles.instagramIcon}>
+              <use xlinkHref="#instagram" />
+            </svg>
+            <Instagram />
+          </>
+      ),
+      href: "https://www.instagram.com/yuliya_kutovaya_jewelry/"
+    },
+    {
+      value: (
+          <>
+            <svg className={styles.telegramIcon}>
+              <use xlinkHref="#telegram" />
+            </svg>
+            <Telegram />
+          </>
+      ),
+      href: "https://t.me/yuliya_kutovaya_jewelry"
+    },
+    {
+      value: "+ (998) 97 750-11-73",
+      href: "tel:+998977501173"
+    },
+    {
+      value: (
+          <Link href="/about" className={styles.linkAbout}>
+            {t.about_us}
+          </Link>
+      )
+    }
+  ];
 
   return (
-    <nav className={styles.navbar} style={navbarStyles[0]}>
-      <Logo color={header.length && header[0].textColor} />
-
-      {isTabletOrMobile && (
-        <>
-          <Hamburger
-            size={30}
-            direction="right"
-            distance="lg"
-            color={header.length && header[0].textColor}
-            label="Show menu"
-            hideOutline={true}
-            toggled={isOpen}
-            toggle={setOpen}
-          />
-        </>
-      )}
+    <nav className={styles.navbar} style={{
+      backgroundColor: "#fff",
+      borderBottom: "1px solid #e7e7e7"
+    }}>
+      <Logo color="#212529" />
+      
+        {isTabletOrMobile && (
+            <div className="flex items-center gap-4">
+              <LanguageSwitcher/>
+              <Hamburger
+                  size={30}
+                  direction="right"
+                  distance="lg"
+                  color="#212529"
+                  label="Show menu"
+                  hideOutline={true}
+                  toggled={isOpen}
+                  toggle={setOpen}
+              />
+            </div>
+        )}
 
       {isOpen ? (
         <DropdownMenu
           items={items}
-          color={header.length && header[0].textColor}
-          backgroundColor={header.length && header[0].backgroundColor}
-          borderColor={header.length && header[0].borderBottomColor}
+          color="#212529"
+          backgroundColor="#ffffff"
+          borderColor="#e7e7e7"
         />
       ) : (
         ""
       )}
       
       <ul className={`${styles.navList}`}>
-        <li style={{color: `${header.length && header[0].textColor}`}} className="">
+        <li style={{color: '#212529'}} className="">
           <Link href="/all-collection" passHref>
-            <div className={styles.day}>Коллекции</div>
+            <div className={styles.day}>{t.collections}</div>
           </Link>
         </li>
-        <li style={{color: `${header.length && header[0].textColor}`}}>
+        <li style={{color: '#212529'}}>
           <Link href="/post" passHref>
-            <a className={styles.day}>31 января - День Ювелира</a>
+            <a className={styles.day}>{t.jewellers_day}</a>
           </Link>
         </li>
         
@@ -150,7 +123,7 @@ const Navbar = ({ header }) => {
               target="_blank"
               rel="noreferrer"
               href="https://www.instagram.com/yuliya_kutovaya_jewelry/"
-              style={{stroke: `${header.length && header[0].textColor}`}}
+              style={{stroke: '#212529'}}
           >
             <svg className={styles.instagramIcon}>
               <use xlinkHref="#instagram"/>
@@ -165,7 +138,7 @@ const Navbar = ({ header }) => {
               target="_blank"
               href="https://t.me/yuliya_kutovaya_jewelry"
               rel="noreferrer"
-              style={{fill: `${header.length && header[0].textColor}`}}
+              style={{fill: '#212529'}}
           >
             <svg className={styles.telegramIcon}>
               <use xlinkHref="#telegram"/>
@@ -174,16 +147,20 @@ const Navbar = ({ header }) => {
           </a>
         </li>
         
-        <li style={{color: `${header.length && header[0].textColor}`}}>
+        <li style={{color: '#212529'}}>
           <a className={styles.phone} href="tel:+998977501173">
             + (998) 97 750-11-73
           </a>
         </li>
         
-        <li style={{color: `${header.length && header[0].textColor}`}}>
+        <li style={{color: '#212529'}}>
           <Link href="/about" passHref>
-            <a className={styles.phone}>О Нас</a>
+            <a className={`${styles.aboutUs} capitalize`}>{t.about_us}</a>
           </Link>
+        </li>
+        
+        <li style={{color: '#212529'}}>
+          <LanguageSwitcher/>
         </li>
       </ul>
     </nav>
